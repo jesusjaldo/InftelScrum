@@ -1,114 +1,27 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="resources/template/PrincipalLayout.xhtml">
 
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/business-casual.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"></link>
-        <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css"></link>
-    </h:head>
-    <h:body>
-        <body>
+    <ui:define name="Head">
+        <ui:include src="/Sections/Head.xhtml"/>
+    </ui:define>
 
-            <div class="brand">Business Casual</div>
-            <div class="address-bar">3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890</div>
+    <ui:define name="PanelHeader">
+        <ui:include src="/Sections/PanelHeader.xhtml"/>
+    </ui:define>
 
-            <!-- Navigation -->
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
-                        <a class="navbar-brand" href="index.html">Business Casual</a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="index.html">Home</a>
-                            </li>
-                            <li>
-                                <a href="about.html">About</a>
-                            </li>
-                            <li>
-                                <a href="blog.html">Blog</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container -->
-            </nav>
+    <!--<ui:define name="PanelImage">
+        <ui:include src="/Sections/PanelIcono.xhtml"/>
+    </ui:define>
 
-            <div class="container">
+    
 
-                <div class="row">
-                    <div class="box">
-                        <div class="col-lg-12" >
+    <ui:define name="PanelFooter">
+        <ui:include src="/Sections/PanelIcono.xhtml"/>
+    </ui:define>-->
+    
+    <ui:define name="PanelDescription">
+        <ui:include src="/Sections/panelNewProject.xhtml"/>
+    </ui:define>
 
-                            <h:form id="form">
-
-                                <p:panel id="panel" header="Form" style="margin-bottom:10px;">
-                                    <p:messages id="messages" />
-                                    <h:panelGrid columns="3" cellpadding="5">
-                                        <p:outputLabel for="titulo" value="Titulo :" />
-                                        <p:inputText id="titulo" value="#{newProjectBean.titulo}" required="true" label="Titulo">
-                                            <f:validateLength minimum="2" />
-                                        </p:inputText>
-                                        <p:message for="titulo" />
-
-                                        <p:outputLabel for="descripcion" value="Descripcion :" />
-                                        <p:inputText id="descripcion" value="#{newProjectBean.descripcion}" required="true" label="Descripción" />
-                                        <p:message for="descripcion" />
-
-                                    </h:panelGrid>
-                                </p:panel>
-                                <p:toolbar>
-                                    <f:facet name="left">
-                                        <p:commandButton value="Enviar" update="panel"  style="margin-right:200px;" />
-                                    </f:facet>
-                                </p:toolbar>
-                            </h:form>
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-
-
-            </div>
-            <!-- /.container -->
-
-            <footer>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <p>Copyright &copy; Your Website 2014</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-
-
-
-        </body>
-    </h:body>
-</html>
-
+</ui:composition>
