@@ -27,7 +27,6 @@ public class ProjectListExampleBean {
     @PostConstruct
     public void init(){
         projectList = new ArrayList<ProjectModelExample>();
-        
         ProjectModelExample p1 = new ProjectModelExample("Proyecto 1", "Este proyecto está dedicado para ser un ejemplo numero 1", 1);
         ProjectModelExample p2 = new ProjectModelExample("Proyecto 2", "Este proyecto está dedicado para ser un ejemplo numero 2", 2);
         ProjectModelExample p3 = new ProjectModelExample("Proyecto 3", "Este proyecto está dedicado para ser un ejemplo numero 3", 3);
