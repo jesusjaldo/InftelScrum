@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class UsuyproScrum implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @SequenceGenerator(name = "SeqIdUsuyproScrum", sequenceName = "SEQUENCE_USUYPRO_SCRUM", allocationSize = 1)
+    @SequenceGenerator(name = "SeqIdUsuyproScrum", sequenceName = "SECUENCIA_USUYPRO_SCRUM", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdUsuyproScrum")
     @Basic(optional = false)
     @NotNull

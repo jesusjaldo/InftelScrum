@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class TareaScrum implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @SequenceGenerator(name = "SeqIdTareaScrum", sequenceName = "SEQUENCE_TAREA_SCRUM", allocationSize = 1)
+    @SequenceGenerator(name = "SeqIdTareaScrum", sequenceName = "SECUENCIA_TAREA_SCRUM", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdTareaScrum")
     @Basic(optional = false)
     @NotNull
