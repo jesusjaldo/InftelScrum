@@ -48,7 +48,7 @@ public class ProyectoScrum implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @SequenceGenerator(name = "SeqIdProyectoScrum", sequenceName = "SEQUENCE_PROYECTO_SCRUM", allocationSize = 1)
+    @SequenceGenerator(name = "SeqIdProyectoScrum", sequenceName = "SECUENCIA_PROYECTO_SCRUM", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdProyectoScrum")
     @Basic(optional = false)
     @NotNull

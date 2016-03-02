@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class FicherosScrum implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @SequenceGenerator(name = "SeqIdFicherosScrum", sequenceName = "SEQUENCE_FICHERO_SCRUM", allocationSize = 1)
+    @SequenceGenerator(name = "SeqIdFicherosScrum", sequenceName = "SECUENCIA_FICHERO_SCRUM", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdFicheroScrum")
     @Basic(optional = false)
     @NotNull
