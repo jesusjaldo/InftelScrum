@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aux;
+package resource;
 
 /**
  *
  * @author inftel19
  */
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -36,6 +37,13 @@ public class DashboardView implements Serializable {
         DashboardColumn column1 = new DefaultDashboardColumn();
         DashboardColumn column2 = new DefaultDashboardColumn();
         DashboardColumn column3 = new DefaultDashboardColumn();
+        List<String> task_list = null;
+        
+        task_list.add("Login");
+        task_list.add("Login");
+        task_list.add("Login");
+        
+        
          
         column1.addWidget("sports");
         column1.addWidget("finance");
