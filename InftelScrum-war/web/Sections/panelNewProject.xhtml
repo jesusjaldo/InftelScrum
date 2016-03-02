@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12" >
+                    <h:form id="form">
+                        <p:panel id="panel" header="Form" style="margin-bottom:10px;">
+                            <p:messages id="messages" />
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel for="titulo" value="Titulo :" />
+                                <p:inputText id="titulo" value="#{newProjectBean.titulo}" required="true" label="Titulo">
+                                    <f:validateLength minimum="2" />
+                                </p:inputText>
+                                <p:message for="titulo" />
+
+                                <p:outputLabel for="descripcion" value="Descripcion :" />
+                                <p:inputText id="descripcion" value="#{newProjectBean.descripcion}" required="true" label="Descripción" />
+                                <p:message for="descripcion" />
+
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:toolbar>
+                            <f:facet name="left">
+                                <p:commandButton value="Enviar" update="panel"  style="margin-right:200px;" />
+                            </f:facet>
+                        </p:toolbar>
+                    </h:form>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+</html>
+
+
+
