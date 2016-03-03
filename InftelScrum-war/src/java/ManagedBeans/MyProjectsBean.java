@@ -5,11 +5,9 @@
  */
 package ManagedBeans;
 
-import ejb.ProyectoScrumFacade;
-import java.util.ArrayList;
+import java.util.Collection;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import model.ProyectoScrum;
@@ -18,29 +16,24 @@ import model.ProyectoScrum;
  *
  * @author aitorpagan
  */
-@Named(value = "myProjectsBean")
+@ManagedBean
 @RequestScoped
 public class MyProjectsBean {
-    
-    @EJB
-    private ProyectoScrumFacade proyectoScrumFacade;
-    
 
-    @ManagedProperty(value="#{loginBean}")
-    private LoginBean loginBean;
+    @ManagedProperty(value = "#{loginBean}")
+    protected LoginBean loginBean;
     
-    ArrayList<ProyectoScrum> projectList;
+    Collection projectList;
     /**
      * Creates a new instance of MyProjectsBean
      */
     
-    @PostConstruct
-    public void init(){
-        projectList = new ArrayList<ProyectoScrum>();
+    public MyProjectsBean() {
     }
     
-    
-    public MyProjectsBean() {
+    @PostConstruct
+    public void init(){        
+        projectList = loginBean.getUser().getProyectoScrumCollection();
     }
     
     /*Getters & Setters*/
@@ -53,11 +46,12 @@ public class MyProjectsBean {
         this.loginBean = loginBean;
     }
 
-    public ArrayList<ProyectoScrum> getProjectList() {
+    public Collection<ProyectoScrum> getProjectList() {
         return projectList;
+        
     }
 
-    public void setProjectList(ArrayList<ProyectoScrum> projectList) {
+    public void setProjectList(Collection<ProyectoScrum> projectList) {
         this.projectList = projectList;
     }
     

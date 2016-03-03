@@ -6,21 +6,21 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     
-    <h:form rendered="#{projectListExampleBean.projectList.size() gt 0}">
+    <h:form rendered="#{myProjectsBean.projectList.size() gt 0}">
             <p:growl id="msgs" showDetail="true" />
-            <ui:repeat var="project" value="#{projectListExampleBean.projectList}">            
-                <p:fieldset legend="#{project.project_Name}" toggleable="true" toggleSpeed="500">
+            <ui:repeat var="project" value="#{myProjectsBean.projectList}">            
+                <p:fieldset legend="#{project.nombre}" toggleable="true" toggleSpeed="500">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:graphicImage class="img-circle img-responsive" style="max-width: 30px;" value="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
-                        <h:outputText value="iD de Proyecto #{project.id_Project}"/>
+                        <h:outputText value="iD de Proyecto #{project.idProyecto}"/>
                         <h:outputText ></h:outputText>
-                        <h:outputText value="#{project.description}"></h:outputText>
+                        <h:outputText value="#{project.descripcion}"></h:outputText>
                     </h:panelGrid>
                 </p:fieldset>
             </ui:repeat>
     </h:form>
     
-    <h:form rendered="#{projectListExampleBean.projectList.size() == 0}">
+    <h:form rendered="#{myProjectsBean.projectList.size() == 0}">
         <p:growl id="msgs" showDetail="true" />
         <p:fieldset legend="NO PROJECTS" toggleable="False">           
         </p:fieldset>

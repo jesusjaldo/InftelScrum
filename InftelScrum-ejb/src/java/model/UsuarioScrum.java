@@ -62,9 +62,9 @@ public class UsuarioScrum implements Serializable {
     private String email;
     @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<TareaScrum> tareaScrumCollection;
-    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<UsuyproScrum> usuyproScrumCollection;
-    @OneToMany(mappedBy = "idAdmin", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "idAdmin", fetch = FetchType.LAZY)
     private Collection<ProyectoScrum> proyectoScrumCollection;
 
     public UsuarioScrum() {

@@ -17,7 +17,7 @@ import model.UsuarioScrum;
 @Stateless
 public class UsuarioScrumFacade extends AbstractFacade<UsuarioScrum> {
     @PersistenceContext(unitName = "InftelScrum-ejbPU")
-    private EntityManager em;
+    public EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

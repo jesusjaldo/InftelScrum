@@ -35,6 +35,8 @@ public class ProjectListExampleBean {
         projectList.add(p2);
         projectList.add(p3);
         
+        System.out.println("Hola!!");
+        
     }
     
     public ProjectListExampleBean() {

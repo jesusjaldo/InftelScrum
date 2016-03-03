@@ -9,7 +9,7 @@ import ejb.UsuarioScrumFacade;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import model.UsuarioScrum;
 
 /**
@@ -17,7 +17,7 @@ import model.UsuarioScrum;
  * @author inftel20
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class LoginBean {
     @EJB
     private UsuarioScrumFacade usuarioScrumFacade;
@@ -39,7 +39,7 @@ public class LoginBean {
     public void init(){
         this.sesion = false;
         this.user = new UsuarioScrum();
-        //this.user = usuarioScrumFacade.find(1);
+        this.user = usuarioScrumFacade.find(Long.valueOf("1"));
     }
 
     public boolean isSesion() {
