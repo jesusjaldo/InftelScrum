@@ -13,47 +13,46 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import model.ProyectoScrum;
-import model.UsuarioScrum;
 
 /**
  *
  * @author loubna
  */
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class newProjectBean {
-
-    @EJB
-    private UsuarioScrumFacade usuarioScrumFacade;
-
+    
+    @ManagedProperty(value = "#{loginBean}")
+    protected LoginBean loginBean;
+    
     @EJB
     private ProyectoScrumFacade proyectoScrumFacade;
     
-  // @ManagedProperty(value="#{loginBean}")
-   // private LoginBean loginBean;
 
+   
     protected String titulo;
     protected String descripcion;
     protected ProyectoScrum proyecto;
     
-        @PostConstruct
+    @PostConstruct
     public void init () {
       proyecto = new ProyectoScrum();
       
     }
 
-    public void doCrearProyecto(){
-        UsuarioScrum find = usuarioScrumFacade.find(Long.valueOf("1"));
-        this.proyecto.setIdAdmin(find);
+    public String doCrearProyecto(){
+        this.proyecto.setIdAdmin(loginBean.user);
         this.proyecto.setNombre(titulo);
         this.proyecto.setDescripcion(descripcion);
         Calendar fechaInicio = Calendar.getInstance();
         this.proyecto.setFechaInicio(fechaInicio.getTime());
         ProyectoScrum p=proyecto;
         this.proyectoScrumFacade.create(proyecto);
-    
+        loginBean.user.getProyectoScrumCollection().add(p);
+        
+        return "myProjects";
      
     }
 
@@ -80,6 +79,15 @@ public class newProjectBean {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public LoginBean getLoginBean() {
+        return loginBean;
+    }
+
+    public void setLoginBean(LoginBean loginBean) {
+        this.loginBean = loginBean;
+    }
    
+    
     
 }
