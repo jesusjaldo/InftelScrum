@@ -22,7 +22,7 @@ public class LoginBean {
     @EJB
     private UsuarioScrumFacade usuarioScrumFacade;
 
-    protected boolean logueado;
+    protected boolean sesion;
     protected UsuarioScrum user;
     protected String image;
     
@@ -37,15 +37,17 @@ public class LoginBean {
     
     @PostConstruct
     public void init(){
-        this.user = usuarioScrumFacade.find(1);
+        this.sesion = false;
+        this.user = new UsuarioScrum();
+        //this.user = usuarioScrumFacade.find(1);
     }
 
-    public boolean isLogueado() {
-        return logueado;
+    public boolean isSesion() {
+        return sesion;
     }
 
-    public void setLogueado(boolean logueado) {
-        this.logueado = logueado;
+    public void setSesion(boolean sesion) {
+        this.sesion = sesion;
     }
 
     public UsuarioScrum getUser() {

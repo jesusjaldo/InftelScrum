@@ -26,19 +26,27 @@
                         <h:link value="Home" outcome="index"/>
 
                     </li>
+                    <h:panelGroup rendered="#{loginBean.sesion == true}">
+                        <li> 
+                            <h:link value="Nuevo Proyecto" outcome="newProject"/>
+
+                        </li>
+                        <li>
+                            <h:link value="Mis Proyectos" outcome="myProjects"/>
+
+                        </li>
+
+                        <li>
+                            <h:link value="Login" outcome="login"/>
+
+                        </li>
+                    </h:panelGroup>
                     <li>
-                        <h:link value="Nuevo Proyecto" outcome="newProject"/>
+                        <h:link rendered="#{loginBean.sesion == false}" value="Login" outcome="login"/>
 
                     </li>
-                    <li>
-                        <h:link value="Mis Proyectos" outcome="myProjects"/>
 
-                    </li>
 
-                    <li>
-                        <h:link value="Login" outcome="login"/>
-
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
