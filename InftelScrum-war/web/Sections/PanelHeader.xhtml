@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <div class="brand" style="alignment-adjust: central">Inftel Scrum</div>
 
@@ -37,7 +39,9 @@
                         </li>
 
                         <li>
-                            <h:link value="Login" outcome="login"/>
+                            <h:form>
+                                <h:commandButton  onclick="signOut()" action="#{loginBean.salir()}" value="salir"></h:commandButton>
+                            </h:form>
 
                         </li>
                     </h:panelGroup>

@@ -96,4 +96,9 @@ public class LoginBean {
         return ("myProjects");
     }
     
+    public String salir(){
+        sesion = false;
+        return "index";
+    }
+    
 }
