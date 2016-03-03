@@ -5,24 +5,20 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <div class="container">
-        <div class="row">
+        <div class="row" >
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="well well-sm">
                     <div class="row">
                         <div class="col-sm-6 col-md-4">
-                            <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
+                            <img src="#{loginBean.image}" alt="" class="img-rounded img-responsive" />
+                            
                         </div>
                         <div class="col-sm-6 col-md-8">
-                            <h4>
-                                Bhaumik Patel</h4>
-                            <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                                    </i></cite></small>
+                            <h4> #{loginBean.user.nombre}</h4>
+                            
                             <p>
-                                <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                                <br/>
-                                <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                                <br/>
-                                <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
+                                <i class="glyphicon glyphicon-envelope"></i>#{loginBean.user.email}
+                            </p>
                             <!-- Split button -->
                             <div class="btn-group">
                                 <h:form>
