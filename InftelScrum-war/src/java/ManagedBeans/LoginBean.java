@@ -67,7 +67,7 @@ public class LoginBean {
         this.image = image;
     }
     
-        public String anadir(){
+    public String anadir(){
         FacesContext context = FacesContext.getCurrentInstance();
         String nombre = context.getExternalContext().getRequestParameterMap().get("nombre");
         String imagen = context.getExternalContext().getRequestParameterMap().get("imagen");
@@ -90,6 +90,8 @@ public class LoginBean {
         }
 
         image = imagen;
+        
+        sesion = true;
         
         return ("myProjects");
     }
