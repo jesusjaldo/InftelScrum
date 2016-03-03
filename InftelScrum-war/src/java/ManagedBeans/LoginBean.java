@@ -6,10 +6,12 @@
 package ManagedBeans;
 
 import ejb.UsuarioScrumFacade;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.UsuarioScrum;
 
 /**
@@ -39,7 +41,6 @@ public class LoginBean {
     public void init(){
         this.sesion = false;
         this.user = new UsuarioScrum();
-        this.user = usuarioScrumFacade.find(Long.valueOf("1"));
     }
 
     public boolean isSesion() {
@@ -64,6 +65,33 @@ public class LoginBean {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    
+        public String anadir(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        String nombre = context.getExternalContext().getRequestParameterMap().get("nombre");
+        String imagen = context.getExternalContext().getRequestParameterMap().get("imagen");
+        String email = context.getExternalContext().getRequestParameterMap().get("email");
+        //String token = context.getExternalContext().getRequestParameterMap().get("token");
+        String ac_token = context.getExternalContext().getRequestParameterMap().get("ac_token");
+        
+       user.setNombre(nombre);
+       user.setEmail(email);
+       //user.setToken(token);
+       user.setRefreshToken(ac_token);
+        
+        List<UsuarioScrum> findByEmail = usuarioScrumFacade.findByEmail(email);
+        if(findByEmail.isEmpty()){
+           usuarioScrumFacade.create(user);
+           List<UsuarioScrum> findByEmail1 = usuarioScrumFacade.findByEmail(email);
+           user = findByEmail1.get(0);
+        }else{
+            user = findByEmail.get(0);
+        }
+
+        image = imagen;
+        
+        return ("myProjects");
     }
     
 }

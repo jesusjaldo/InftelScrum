@@ -5,6 +5,7 @@
  */
 package ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +27,10 @@ public class UsuarioScrumFacade extends AbstractFacade<UsuarioScrum> {
 
     public UsuarioScrumFacade() {
         super(UsuarioScrum.class);
+    }
+    public List <UsuarioScrum> findByEmail (String email){
+        List <UsuarioScrum> resultList = getEntityManager().createQuery("SELECT p FROM UsuarioScrum p WHERE p.email LIKE :email").setParameter("email", email).getResultList();
+        return resultList;
     }
     
 }

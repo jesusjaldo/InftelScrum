@@ -47,7 +47,7 @@ public class UsuarioScrum implements Serializable {
     @NotNull
     @Column(name = "ID_USUARIO")
     private Long idUsuario;
-    @Size(max = 256)
+    @Size(max = 1000)
     @Column(name = "TOKEN")
     private String token;
     @Size(max = 256)
