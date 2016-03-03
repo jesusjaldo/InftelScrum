@@ -24,11 +24,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <h:link value="Home" outcome="index"/>
 
-                    </li>
                     <h:panelGroup rendered="#{loginBean.sesion == true}">
+                        <li>
+                            <h:link value="Perfil" outcome="profile"/>
+
+                        </li>
+
                         <li> 
                             <h:link value="Nuevo Proyecto" outcome="newProject"/>
 
@@ -38,13 +40,12 @@
 
                         </li>
 
-                        <li>
-                            <h:form>
-                                <h:commandButton  onclick="signOut()" action="#{loginBean.salir()}" value="salir"></h:commandButton>
-                            </h:form>
-
-                        </li>
                     </h:panelGroup>
+                    
+                    <li>
+                        <h:link rendered="#{loginBean.sesion == false}" value="Home" outcome="index"/>
+
+                    </li>
                     <li>
                         <h:link rendered="#{loginBean.sesion == false}" value="Login" outcome="login"/>
 
