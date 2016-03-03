@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,11 +60,11 @@ public class UsuarioScrum implements Serializable {
     @Size(max = 100)
     @Column(name = "EMAIL")
     private String email;
-    @OneToMany(mappedBy = "idUsuario")
+    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<TareaScrum> tareaScrumCollection;
-    @OneToMany(mappedBy = "idUsuario")
+    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.EAGER)
     private Collection<UsuyproScrum> usuyproScrumCollection;
-    @OneToMany(mappedBy = "idAdmin")
+    @OneToMany(mappedBy = "idAdmin", fetch = FetchType.EAGER)
     private Collection<ProyectoScrum> proyectoScrumCollection;
 
     public UsuarioScrum() {
