@@ -8,13 +8,16 @@ package ManagedBeans;
 
 import ejb.ProyectoScrumFacade;
 import ejb.UsuarioScrumFacade;
+import ejb.UsuyproScrumFacade;
 import java.util.Calendar;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import model.ProyectoScrum;
+import model.UsuyproScrum;
 
 /**
  *
@@ -23,6 +26,8 @@ import model.ProyectoScrum;
 @ManagedBean
 @RequestScoped
 public class newProjectBean {
+    @EJB
+    private UsuyproScrumFacade usuyproScrumFacade;
     
     @ManagedProperty(value = "#{loginBean}")
     protected LoginBean loginBean;
@@ -51,6 +56,18 @@ public class newProjectBean {
         ProyectoScrum p=proyecto;
         this.proyectoScrumFacade.create(proyecto);
         loginBean.user.getProyectoScrumCollection().add(p);
+        
+        
+        List<ProyectoScrum> findProyect = proyectoScrumFacade.findProyect(loginBean.user.getIdUsuario(), titulo, descripcion);
+        if(!findProyect.isEmpty()){
+            UsuyproScrum uyp = new UsuyproScrum();
+            uyp.setIdUsuario(loginBean.user);
+            uyp.setIdProyecto(findProyect.get(0));
+            usuyproScrumFacade.create(uyp);
+            loginBean.user.getUsuyproScrumCollection().add(uyp);
+        }
+        
+        
         
         return "myProjects";
      

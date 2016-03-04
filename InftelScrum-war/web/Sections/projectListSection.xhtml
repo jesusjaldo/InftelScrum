@@ -3,28 +3,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    
-    <h:form rendered="#{myProjectsBean.projectList.size() gt 0}">
-            <p:growl id="msgs" showDetail="true" />
-            <ui:repeat var="project" value="#{myProjectsBean.projectList}">            
-                <p:fieldset legend="#{project.nombre}" toggleable="true" toggleSpeed="500">
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <p:graphicImage class="img-circle img-responsive" style="max-width: 30px;" value="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
-                        <h:outputText value="iD de Proyecto #{project.idProyecto}"/>
-                        <h:outputText ></h:outputText>
-                        <h:outputText value="#{project.descripcion}"></h:outputText>
-                    </h:panelGrid>
-                </p:fieldset>
-            </ui:repeat>
+
+    <h:form rendered="#{myProjectsBean.usuyproScrumCollection.size() gt 0}">
+        <p:autoComplete c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}"/>
+        <p:growl id="msgs" showDetail="true" />
+        <ui:repeat var="project" value="#{myProjectsBean.usuyproScrumCollection}">            
+            <p:fieldset legend="#{project.idProyecto.nombre}" toggleable="true" toggleSpeed="500">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:graphicImage class="img-circle img-responsive" style="max-width: 30px;" value="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
+                    <h:outputText value="iD de Proyecto #{project.idProyecto.idProyecto}"/>
+                    <h:outputText ></h:outputText>
+                    <h:outputText value="#{project.idProyecto.descripcion}"></h:outputText>
+                    <h:commandButton value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}"/>
+                </h:panelGrid>
+            </p:fieldset>
+        </ui:repeat>
     </h:form>
-    
-    <h:form rendered="#{myProjectsBean.projectList.size() == 0}">
+
+    <h:form rendered="#{myProjectsBean.usuyproScrumCollection.size() == 0}">
         <p:growl id="msgs" showDetail="true" />
         <p:fieldset legend="NO PROJECTS" toggleable="False">           
         </p:fieldset>
     </h:form>
 
 </html>
+
 
