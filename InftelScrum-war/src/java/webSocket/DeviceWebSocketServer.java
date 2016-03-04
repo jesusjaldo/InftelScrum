@@ -37,11 +37,13 @@ public class DeviceWebSocketServer {
 
     @OnOpen
         public void open(@PathParam("idproject") String projectId, Session session) {
+            System.out.println("Session creada " + projectId + " " + session);
             sessionHandler.addSocketSession(projectId, session);
     }
 
     @OnClose
         public void close(@PathParam("idproject") String projectId, Session session) {
+            System.out.println("Session cerrada " + projectId + " " + session);
             sessionHandler.removeSocketSession(projectId, session);
     }
 

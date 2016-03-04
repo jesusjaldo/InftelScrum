@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import model.ProyectoScrum;
 import model.UsuarioScrum;
 
 /**
@@ -27,7 +28,7 @@ public class LoginBean {
     protected boolean sesion;
     protected UsuarioScrum user;
     protected String image;
-    
+    protected ProyectoScrum selectedProject;
     
     
     
@@ -66,6 +67,15 @@ public class LoginBean {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public ProyectoScrum getSelectedProject() {
+        return selectedProject;
+    }
+
+    public void setSelectedProject(ProyectoScrum selectedProject) {
+        this.selectedProject = selectedProject;
+    }
+    
     
     public String anadir(){
         FacesContext context = FacesContext.getCurrentInstance();

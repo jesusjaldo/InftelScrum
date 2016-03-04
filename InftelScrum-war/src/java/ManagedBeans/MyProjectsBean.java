@@ -23,6 +23,8 @@ public class MyProjectsBean {
     @ManagedProperty(value = "#{loginBean}")
     protected LoginBean loginBean;
     
+    String selectedProject;
+    
     Collection projectList;
     /**
      * Creates a new instance of MyProjectsBean
@@ -51,10 +53,24 @@ public class MyProjectsBean {
         
     }
 
+    public String getSelectedProject() {
+        return selectedProject;
+    }
+
+    public void setSelectedProject(String selectedProject) {
+        this.selectedProject = selectedProject;
+    }
+    
+
     public void setProjectList(Collection<ProyectoScrum> projectList) {
         this.projectList = projectList;
     }
     
-    
+    public String goToProject(ProyectoScrum projectId){
+        
+        System.out.println("Proyecto: " + projectId.getIdProyecto());
+        loginBean.selectedProject = projectId;
+        return "profile";
+    }
     
 }

@@ -11,7 +11,11 @@
             <ui:repeat var="project" value="#{myProjectsBean.projectList}">            
                 <p:fieldset legend="#{project.nombre}" toggleable="true" toggleSpeed="500">
                     <h:panelGrid columns="2" cellpadding="5">
+
+                            <h:commandButton action="#{myProjectsBean.goToProject(project)}">
                         <p:graphicImage class="img-circle img-responsive" style="max-width: 30px;" value="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
+                            </h:commandButton>
+   
                         <h:outputText value="iD de Proyecto #{project.idProyecto}"/>
                         <h:outputText ></h:outputText>
                         <h:outputText value="#{project.descripcion}"></h:outputText>
