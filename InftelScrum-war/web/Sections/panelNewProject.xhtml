@@ -5,36 +5,42 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
-        <div class="row">
-            <div class="box">
-                <div class="col-lg-12" >
-                    <h:form id="form">
-                        <p:panel id="panel" header="Crear nuevo proyecto" style="margin-bottom:10px;">
-                            <p:messages id="messages" />
-                            <h:panelGrid columns="3" cellpadding="5">
-                                <p:outputLabel for="titulo" value="Titulo :" />
-                                <p:inputText id="titulo" value="#{newProjectBean.titulo}" required="true" label="Titulo">
-                                    <f:validateLength minimum="2" />
-                                </p:inputText>
-                                <p:message for="titulo" />
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-12" >
 
-                                <p:outputLabel for="descripcion" value="Descripcion :" />
-                                <p:inputText id="descripcion" value="#{newProjectBean.descripcion}" required="true" label="Descripción" />
-                                <p:message for="descripcion" />
+                <h:form class="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel  for="titulo" class="col-sm-2 control-label">Titulo :</h:outputLabel>
 
-                            </h:panelGrid>
-                        </p:panel>
-                        <p:toolbar>
-                            <f:facet name="left">
-                                <p:commandButton value="Enviar" update="panel" action="#{newProjectBean.doCrearProyecto()}" style="margin-right:200px;" />
-                            </f:facet>
-                        </p:toolbar>
-                    </h:form>
-                </div>
+                        <div class="col-sm-10">
+                            <h:inputText  class="form-control" id="titulo" value="#{newProjectBean.titulo}" required="true" requiredMessage="Titulo es obligatorio!"></h:inputText>
+                            <h:message class="error" for="titulo" />
 
-                <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel  for="descripcion" class="col-sm-2 control-label">Descripción :</h:outputLabel>
+                        <div class="col-sm-10">
+                            <h:inputTextarea class="form-control" rows="3" id="descripcion" value="#{newProjectBean.descripcion}" required="true" requiredMessage="Texto es obligatorio!"></h:inputTextarea>
+                            <h:message class="error" for="descripcion" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <h:form>
+                                <h:commandButton value="Enviar" action="#{newProjectBean.doCrearProyecto()}" class="btn btn-primary" />
+                            </h:form>
+                        </div>
+                    </div>
+                </h:form>
             </div>
+
+            <div class="clearfix"></div>
         </div>
+    </div>
 </html>
 
 
