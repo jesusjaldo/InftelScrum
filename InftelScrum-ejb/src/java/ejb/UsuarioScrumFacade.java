@@ -33,4 +33,9 @@ public class UsuarioScrumFacade extends AbstractFacade<UsuarioScrum> {
         return resultList;
     }
     
+    public List <String> findEmails (){
+        List <String> resultList = getEntityManager().createQuery("SELECT p.email FROM UsuarioScrum p ").getResultList();
+        return resultList;
+    }
+    
 }

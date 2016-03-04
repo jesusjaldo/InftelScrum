@@ -5,6 +5,7 @@
  */
 package ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,8 @@ public class ProyectoScrumFacade extends AbstractFacade<ProyectoScrum> {
         super(ProyectoScrum.class);
     }
     
+    public List<ProyectoScrum> findProyect (long id_admin, String nombre, String descripcion) {
+        List resultList = getEntityManager().createQuery("SELECT p FROM ProyectoScrum p WHERE p.idAdmin.idUsuario = :idAdmin and p.nombre = :nombre and p.descripcion = :descripcion").setParameter("idAdmin", id_admin).setParameter("nombre", nombre).setParameter("descripcion", descripcion).getResultList();
+        return resultList;
+    }
 }
