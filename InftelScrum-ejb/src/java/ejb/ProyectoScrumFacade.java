@@ -5,6 +5,7 @@
  */
 package ejb;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,5 +33,9 @@ public class ProyectoScrumFacade extends AbstractFacade<ProyectoScrum> {
     public List<ProyectoScrum> findProyect (long id_admin, String nombre, String descripcion) {
         List resultList = getEntityManager().createQuery("SELECT p FROM ProyectoScrum p WHERE p.idAdmin.idUsuario = :idAdmin and p.nombre = :nombre and p.descripcion = :descripcion").setParameter("idAdmin", id_admin).setParameter("nombre", nombre).setParameter("descripcion", descripcion).getResultList();
         return resultList;
+    }
+    
+    public ProyectoScrum getProject(String id_project){
+        return getEntityManager().find(ProyectoScrum.class, new BigDecimal(id_project));
     }
 }

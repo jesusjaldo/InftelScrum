@@ -5,15 +5,10 @@
  */
 package webSocket;
 
-import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-//import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -32,7 +27,7 @@ public class DeviceWebSocketServer {
     
     @PostConstruct
     public void afterCreate() {
-        System.out.println("DeviceWebSocketServer created");
+        System.out.println("ChatWebSocketServer created");
     }    
 
     @OnOpen
@@ -54,11 +49,9 @@ public class DeviceWebSocketServer {
 
     @OnMessage
         public void handleMessage(@PathParam("idproject") String projectId, String message, Session session) {
+
             
-            JsonReader reader = Json.createReader(new StringReader(message));
-            JsonObject jsonMessage = reader.readObject();
-            
-            sessionHandler.sendToAllProjectSessions(projectId, jsonMessage);
+            sessionHandler.sendToAllProjectSessions(projectId, message);
             
             
         }

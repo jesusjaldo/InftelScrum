@@ -13,26 +13,45 @@
 window.onload = init;
 var socket = new WebSocket("ws://localhost:8080/InftelScrum-war/actions/" + document.getElementById("projectid").innerHTML);
 socket.onmessage = onMessage;
-var premessage = "<li class=\"right clearfix\"><span class=\"chat-img pull-right\"> </span> <div class=\"chat-body clearfix\"> <div class=\"header\"> <small class=\" text-muted\"><span class=\"glyphicon glyphicon-time\"></span>15 mins ago</small> <strong class=\"pull-right primary-font\">Nuevos Mensajes</strong> </div> <p>";
+var pretimemessage = "<li class=\"right clearfix\"><span class=\"chat-img pull-right\"> </span> <div class=\"chat-body clearfix\"> <div class=\"header\"> <small class=\" text-muted\"><span class=\"glyphicon glyphicon-time\"></span>";
+var prenamemessage = "</small> <strong class=\"pull-right primary-font\">";
+var premessage = "</strong> </div> <p>";
 var postmessage = "</p> </div> </li>";
+$('.chat').animate({scrollTop: 9999999});
 function onMessage(event) {
+
     var mes = JSON.parse(event.data);
-    $("#newmessage").append(premessage + mes.nombre + mes.mensaje + postmessage);
+
+    for (var i in mes) {
+        $("#newmessage").append(pretimemessage + mes[i].fecha + prenamemessage + mes[i].nombre + premessage + mes[i].mensaje + postmessage);
+    }
+    
+    scrollDown();
 }
 
-function sendMessage(){
+function sendMessage() {
     var myjsonmessage = {
-        
         nombre: document.getElementById("userName").innerHTML,
-        mensaje: document.getElementById("btn-input").value
-        
-    };
-    
-    socket.send(JSON.stringify(myjsonmessage));
+        mensaje: document.getElementById("btn-input").value,
+        fecha: new Date().toGMTString()
 
+    };
+    socket.send(JSON.stringify(myjsonmessage));
+    document.getElementById("btn-input").value = "";
 }
 
-function init(){
-    
+function scrollDown() {
+    var height = 0;
+    $('li').each(function (i, value) {
+        height += parseInt($(this).height());
+    });
+
+    height += '';
+
+    $('div').animate({scrollTop: height});
+}
+
+function init() {
+
 }
 

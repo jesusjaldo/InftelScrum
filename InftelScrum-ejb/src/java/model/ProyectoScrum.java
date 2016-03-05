@@ -62,7 +62,7 @@ public class ProyectoScrum implements Serializable {
     private Serializable estados;
     @Lob
     @Column(name = "CHAT")
-    private Serializable chat;
+    private byte[] chat;
     @Column(name = "FECHA_INICIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
@@ -111,11 +111,11 @@ public class ProyectoScrum implements Serializable {
         this.estados = estados;
     }
 
-    public Serializable getChat() {
+    public byte[] getChat() {
         return chat;
     }
 
-    public void setChat(Serializable chat) {
+    public void setChat(byte[] chat) {
         this.chat = chat;
     }
 
