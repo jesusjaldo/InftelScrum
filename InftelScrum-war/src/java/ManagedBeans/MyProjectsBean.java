@@ -35,35 +35,32 @@ public class MyProjectsBean {
     private UsuyproScrumFacade usuyproScrumFacade;
     @EJB
     private UsuarioScrumFacade usuarioScrumFacade;
-    
-    
-    
 
     @ManagedProperty(value = "#{loginBean}")
     protected LoginBean loginBean;
-    
+
     Collection<UsuyproScrum> usuyproScrumCollection;
-    
+
     protected String invitacion;
     protected String invitar;
     protected List<String> mails;
+
     /**
      * Creates a new instance of MyProjectsBean
      */
-    
+
     public MyProjectsBean() {
     }
-    
+
     @PostConstruct
-    public void init(){     
-        
+    public void init() {
+
         usuyproScrumCollection = loginBean.getUser().getUsuyproScrumCollection();
         mails = usuarioScrumFacade.findEmails();
         invitacion = "";
     }
-    
-    /*Getters & Setters*/
 
+    /*Getters & Setters*/
     public LoginBean getLoginBean() {
         return loginBean;
     }
@@ -95,7 +92,7 @@ public class MyProjectsBean {
     public void setInvitar(String invitar) {
         this.invitar = invitar;
     }
-    
+
     public List<String> getMails() {
         return mails;
     }
@@ -103,36 +100,42 @@ public class MyProjectsBean {
     public void setMails(List<String> mails) {
         this.mails = mails;
     }
-    
-    
-    
-    public List<String> completeMail(String query){
-        List <String> results = new ArrayList<>();
+
+    public List<String> completeMail(String query) {
+        List<String> results = new ArrayList<>();
         for (String result : mails) {
-            if(result.contains(query)){
+            if (result.contains(query)) {
                 results.add(result);
             }
         }
         return results;
     }
-    
-    public void enviar(ProyectoScrum project){
-        
+
+    public void enviar(ProyectoScrum project) {
+
         List<UsuarioScrum> usuariosInvitados = usuarioScrumFacade.findByEmail(invitacion);
         UsuyproScrum usuypro = new UsuyproScrum();
-        
+
         usuypro.setIdProyecto(project);
         usuypro.setIdUsuario(usuariosInvitados.get(0));
         usuyproScrumFacade.create(usuypro);
-        
+
     }
-    
-    public String goToProject(ProyectoScrum projectId){
-        
+
+    public String goToProject(ProyectoScrum projectId) {
+
         System.out.println("Proyecto: " + projectId.getIdProyecto());
         loginBean.selectedProject = projectId;
         return "manageProject";
     }
+
+    public String goToEditProject(ProyectoScrum projectId) {
+
+        System.out.println("Proyecto: " + projectId.getIdProyecto());
+        loginBean.selectedProject = projectId;
+        return "editProject";
+    }
+
     
     public String deleteProject(ProyectoScrum project){
        

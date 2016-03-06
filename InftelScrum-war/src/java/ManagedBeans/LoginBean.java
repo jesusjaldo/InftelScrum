@@ -111,4 +111,8 @@ public class LoginBean {
         return "index";
     }
     
+    public void refresh(){
+        this.user = usuarioScrumFacade.findByEmail(this.user.getEmail()).get(0);
+    }
+    
 }

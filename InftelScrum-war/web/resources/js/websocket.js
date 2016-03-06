@@ -48,7 +48,7 @@ function scrollDown() {
 
     height += '';
 
-    $('div').animate({scrollTop: height});
+    $('#chat').animate({scrollTop: height});
 }
 
 function init() {

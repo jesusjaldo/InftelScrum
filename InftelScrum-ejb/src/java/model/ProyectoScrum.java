@@ -55,7 +55,7 @@ public class ProyectoScrum implements Serializable {
     @NotNull
     @Column(name = "ID_PROYECTO")
     private BigDecimal idProyecto;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
     @Lob
@@ -114,13 +114,6 @@ public class ProyectoScrum implements Serializable {
         this.estados = estados;
     }
 
-    public byte[] getChat() {
-        return chat;
-    }
-
-    public void setChat(byte[] chat) {
-        this.chat = chat;
-    }
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -195,6 +188,14 @@ public class ProyectoScrum implements Serializable {
     @Override
     public String toString() {
         return "model.ProyectoScrum[ idProyecto=" + idProyecto + " ]";
+    }
+
+    public byte[] getChat() {
+        return chat;
+    }
+
+    public void setChat(byte[] chat) {
+        this.chat = chat;
     }
     
 }

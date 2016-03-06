@@ -12,7 +12,6 @@
 
         <p:growl id="msgs" showDetail="true" />
         <p:autoComplete c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}"/>
-        
         <ui:repeat var="project" value="#{myProjectsBean.usuyproScrumCollection}">            
 
             <p:accordionPanel multiple="true">
@@ -21,7 +20,9 @@
 
                         <h:outputText value="Acceder"/>
                         <h:commandButton action="#{myProjectsBean.goToProject(project.idProyecto)}"  style="width:25px;height:25px" image="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
-
+                        
+                        
+                        
                         <h:outputText value="ID: "/>
                         <h:outputText value="#{project.idProyecto.idProyecto}"/>
 
@@ -29,6 +30,9 @@
                         <h:outputText value="#{project.idProyecto.descripcion}"/>
 
                         <h:commandButton value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}"/>
+                   
+                        <h:commandButton value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"></h:commandButton>
+                        
                         <h:commandButton value="Borrar" action="#{myProjectsBean.deleteProject(project.idProyecto)}"/>
                     </p:panelGrid>
                 </p:tab>      

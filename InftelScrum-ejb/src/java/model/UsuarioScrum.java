@@ -40,9 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UsuarioScrum.findByEmail", query = "SELECT u FROM UsuarioScrum u WHERE u.email = :email")})
 public class UsuarioScrum implements Serializable {
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @SequenceGenerator(name = "SeqIdUserScrum", sequenceName = "SECUENCIA_USUARIO_SCRUM", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdUserScrum")
+    @SequenceGenerator(name = "SeqIdUsuarioScrum", sequenceName = "SECUENCIA_USUARIO_SCRUM", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdUsuarioScrum")
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USUARIO")
