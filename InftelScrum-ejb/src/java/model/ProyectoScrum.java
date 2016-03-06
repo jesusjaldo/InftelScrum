@@ -59,7 +59,7 @@ public class ProyectoScrum implements Serializable {
     private String nombre;
     @Lob
     @Column(name = "ESTADOS")
-    private Serializable estados;
+    private byte[] estados;
     @Lob
     @Column(name = "CHAT")
     private byte[] chat;
@@ -103,11 +103,11 @@ public class ProyectoScrum implements Serializable {
         this.nombre = nombre;
     }
 
-    public Serializable getEstados() {
+    public byte[] getEstados() {
         return estados;
     }
 
-    public void setEstados(Serializable estados) {
+    public void setEstados(byte[] estados) {
         this.estados = estados;
     }
 
