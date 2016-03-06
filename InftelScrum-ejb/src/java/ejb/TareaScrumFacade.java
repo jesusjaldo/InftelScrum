@@ -12,7 +12,7 @@ import model.TareaScrum;
 
 /**
  *
- * @author inftel20
+ * @author RMA
  */
 @Stateless
 public class TareaScrumFacade extends AbstractFacade<TareaScrum> {

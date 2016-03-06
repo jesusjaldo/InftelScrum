@@ -13,9 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -28,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author inftel20
+ * @author RMA
  */
 @Entity
 @Table(name = "FICHEROS_SCRUM")
@@ -38,25 +36,22 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "FicherosScrum.findByIdFichero", query = "SELECT f FROM FicherosScrum f WHERE f.idFichero = :idFichero"),
     @NamedQuery(name = "FicherosScrum.findByExt", query = "SELECT f FROM FicherosScrum f WHERE f.ext = :ext")})
 public class FicherosScrum implements Serializable {
+    @OneToMany(mappedBy = "idFichero")
+    private Collection<TareaScrum> tareaScrumCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name = "SeqIdFicherosScrum", sequenceName = "SECUENCIA_FICHERO_SCRUM", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdFicheroScrum")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdFicherosScrum")
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_FICHERO")
     private Long idFichero;
     @Lob
     @Column(name = "FICHERO")
-    private Serializable fichero;
+    private byte[] fichero;
     @Size(max = 100)
     @Column(name = "EXT")
     private String ext;
-    @OneToMany(mappedBy = "idFichero")
-    private Collection<TareaScrum> tareaScrumCollection;
-    @JoinColumn(name = "ID_TAREA", referencedColumnName = "ID_TAREA")
-    @ManyToOne(optional = false)
-    private TareaScrum idTarea;
 
     public FicherosScrum() {
     }
@@ -73,11 +68,11 @@ public class FicherosScrum implements Serializable {
         this.idFichero = idFichero;
     }
 
-    public Serializable getFichero() {
+    public byte[] getFichero() {
         return fichero;
     }
 
-    public void setFichero(Serializable fichero) {
+    public void setFichero(byte[] fichero) {
         this.fichero = fichero;
     }
 
@@ -87,23 +82,6 @@ public class FicherosScrum implements Serializable {
 
     public void setExt(String ext) {
         this.ext = ext;
-    }
-
-    @XmlTransient
-    public Collection<TareaScrum> getTareaScrumCollection() {
-        return tareaScrumCollection;
-    }
-
-    public void setTareaScrumCollection(Collection<TareaScrum> tareaScrumCollection) {
-        this.tareaScrumCollection = tareaScrumCollection;
-    }
-
-    public TareaScrum getIdTarea() {
-        return idTarea;
-    }
-
-    public void setIdTarea(TareaScrum idTarea) {
-        this.idTarea = idTarea;
     }
 
     @Override
@@ -129,6 +107,15 @@ public class FicherosScrum implements Serializable {
     @Override
     public String toString() {
         return "model.FicherosScrum[ idFichero=" + idFichero + " ]";
+    }
+
+    @XmlTransient
+    public Collection<TareaScrum> getTareaScrumCollection() {
+        return tareaScrumCollection;
+    }
+
+    public void setTareaScrumCollection(Collection<TareaScrum> tareaScrumCollection) {
+        this.tareaScrumCollection = tareaScrumCollection;
     }
     
 }

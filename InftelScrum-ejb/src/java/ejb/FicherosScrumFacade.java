@@ -12,7 +12,7 @@ import model.FicherosScrum;
 
 /**
  *
- * @author inftel20
+ * @author RMA
  */
 @Stateless
 public class FicherosScrumFacade extends AbstractFacade<FicherosScrum> {
