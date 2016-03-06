@@ -6,10 +6,8 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,11 +24,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author inftel20
+ * @author RMA
  */
 @Entity
 @Table(name = "TAREA_SCRUM")
@@ -48,8 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class TareaScrum implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @SequenceGenerator(name = "SeqIdTareaScrum", sequenceName = "SECUENCIA_TAREA_SCRUM", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdTareaScrum")
+    @SequenceGenerator(name = "SeqIdProyectoScrum", sequenceName = "SECUENCIA_PROYECTO_SCRUM", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SeqIdProyectoScrum")
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_TAREA")
@@ -81,8 +77,6 @@ public class TareaScrum implements Serializable {
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne
     private UsuarioScrum idUsuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTarea")
-    private Collection<FicherosScrum> ficherosScrumCollection;
 
     public TareaScrum() {
     }
@@ -169,15 +163,6 @@ public class TareaScrum implements Serializable {
 
     public void setIdUsuario(UsuarioScrum idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    @XmlTransient
-    public Collection<FicherosScrum> getFicherosScrumCollection() {
-        return ficherosScrumCollection;
-    }
-
-    public void setFicherosScrumCollection(Collection<FicherosScrum> ficherosScrumCollection) {
-        this.ficherosScrumCollection = ficherosScrumCollection;
     }
 
     @Override

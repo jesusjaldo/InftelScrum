@@ -1,6 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="resources/template/PrincipalLayout.xhtml">
+                template="resources/template/PrincipalLayout.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="Head">
         <ui:include src="/Sections/Head.xhtml"/>
@@ -11,11 +13,8 @@
     </ui:define>
 
     <ui:define name="PanelDescription">
-        <ui:include src="/Sections/profileSection.xhtml"/>
+        <ui:include src="/Sections/panelTask2.xhtml"/>
     </ui:define>
-    
-    <ui:define name="PanelFooter">
-        <ui:include src="/Sections/panelTask.xhtml"/>
-    </ui:define>
+  
 
 </ui:composition>

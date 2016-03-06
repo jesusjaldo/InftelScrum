@@ -6758,3 +6758,7 @@ button.close {
   }
 }
 
+.ui-selectonemenu-trigger{
+    width:30px !important;
+}
+

@@ -45,6 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ProyectoScrum.findByFechaFin", query = "SELECT p FROM ProyectoScrum p WHERE p.fechaFin = :fechaFin"),
     @NamedQuery(name = "ProyectoScrum.findByDescripcion", query = "SELECT p FROM ProyectoScrum p WHERE p.descripcion = :descripcion")})
 public class ProyectoScrum implements Serializable {
+    @Lob
+    @Column(name = "CHAT")
+    private byte[] chat;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -59,10 +62,7 @@ public class ProyectoScrum implements Serializable {
     private String nombre;
     @Lob
     @Column(name = "ESTADOS")
-    private Serializable estados;
-    @Lob
-    @Column(name = "CHAT")
-    private byte[] chat;
+    private byte[] estados;
     @Column(name = "FECHA_INICIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
@@ -103,21 +103,14 @@ public class ProyectoScrum implements Serializable {
         this.nombre = nombre;
     }
 
-    public Serializable getEstados() {
+    public byte[] getEstados() {
         return estados;
     }
 
-    public void setEstados(Serializable estados) {
+    public void setEstados(byte[] estados) {
         this.estados = estados;
     }
 
-    public byte[] getChat() {
-        return chat;
-    }
-
-    public void setChat(byte[] chat) {
-        this.chat = chat;
-    }
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -192,6 +185,14 @@ public class ProyectoScrum implements Serializable {
     @Override
     public String toString() {
         return "model.ProyectoScrum[ idProyecto=" + idProyecto + " ]";
+    }
+
+    public byte[] getChat() {
+        return chat;
+    }
+
+    public void setChat(byte[] chat) {
+        this.chat = chat;
     }
     
 }
