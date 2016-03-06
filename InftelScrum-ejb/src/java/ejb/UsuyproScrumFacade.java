@@ -8,6 +8,8 @@ package ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.ProyectoScrum;
+import model.UsuarioScrum;
 import model.UsuyproScrum;
 
 /**
@@ -28,4 +30,9 @@ public class UsuyproScrumFacade extends AbstractFacade<UsuyproScrum> {
         super(UsuyproScrum.class);
     }
     
+    public UsuyproScrum getProjectFromUSerAndProject (ProyectoScrum project, UsuarioScrum user){
+       
+       return (UsuyproScrum) getEntityManager().createNamedQuery("UsuyproScrum.findByIdUsuyIdPro").setParameter("idProyecto", project).setParameter("idUsuario", user).getSingleResult();
+          
+    }
 }

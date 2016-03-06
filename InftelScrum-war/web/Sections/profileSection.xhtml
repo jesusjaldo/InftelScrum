@@ -6,14 +6,14 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <div class="container">
         <div class="row" >
-            <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="well well-sm">
                     <div class="row">
                         <div class="col-sm-6 col-md-4">
-                         
-                        
+
+
                             <img  src="#{loginBean.image}" alt="" class="img-rounded img-responsive" />
-                            
+
                         </div>
                         <div class="col-sm-6 col-md-8">
                             <h4 id="userName"> #{loginBean.user.nombre}</h4>
@@ -25,7 +25,7 @@
                             <div class="btn-group">
                                 <h:form>
                                     <div hidden="true" class="g-signin2"  data-onsuccess="onSignIn" wdata-theme="dark"></div>
-                                    <h:commandButton class="btn btn-primary"  value="Salir"  onclick="signOut()" action="#{loginBean.salir()}" ></h:commandButton>
+                                    <h:commandButton class="btn btn-primary"  value="Cerrar sesion"  onclick="signOut()" action="#{loginBean.salir()}" ></h:commandButton>
                                 </h:form>  
                             </div>
                         </div>

@@ -18,6 +18,9 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class ProjectListExampleBean {
     
+    
+    
+    
     ArrayList<ProjectModelExample> projectList;
 
     /**

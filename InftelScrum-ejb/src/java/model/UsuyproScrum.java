@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UsuyproScrum.findAll", query = "SELECT u FROM UsuyproScrum u"),
-    @NamedQuery(name = "UsuyproScrum.findByIdUsuypro", query = "SELECT u FROM UsuyproScrum u WHERE u.idUsuypro = :idUsuypro")})
+    @NamedQuery(name = "UsuyproScrum.findByIdUsuypro", query = "SELECT u FROM UsuyproScrum u WHERE u.idUsuypro = :idUsuypro"),
+    @NamedQuery(name = "UsuyproScrum.findByIdUsuyIdPro", query = "SELECT u FROM UsuyproScrum u WHERE u.idProyecto = :idProyecto and u.idUsuario = :idUsuario")}    )
 public class UsuyproScrum implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,7 +60,7 @@ public class ProyectoScrum implements Serializable {
     private String nombre;
     @Lob
     @Column(name = "ESTADOS")
-    private Serializable estados;
+    private byte[] estados;
     @Lob
     @Column(name = "CHAT")
     private byte[] chat;
@@ -72,13 +73,15 @@ public class ProyectoScrum implements Serializable {
     @Size(max = 500)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @OneToMany(mappedBy = "idProyecto")
+    @OneToMany(mappedBy = "idProyecto",  cascade = CascadeType.REMOVE)
     private Collection<TareaScrum> tareaScrumCollection;
-    @OneToMany(mappedBy = "idProyecto")
+    @OneToMany(mappedBy = "idProyecto",cascade = CascadeType.REMOVE)
     private Collection<UsuyproScrum> usuyproScrumCollection;
     @JoinColumn(name = "ID_ADMIN", referencedColumnName = "ID_USUARIO")
     @ManyToOne
     private UsuarioScrum idAdmin;
+    
+    
 
     public ProyectoScrum() {
     }
@@ -103,11 +106,11 @@ public class ProyectoScrum implements Serializable {
         this.nombre = nombre;
     }
 
-    public Serializable getEstados() {
+    public byte[] getEstados() {
         return estados;
     }
 
-    public void setEstados(Serializable estados) {
+    public void setEstados(byte[] estados) {
         this.estados = estados;
     }
 

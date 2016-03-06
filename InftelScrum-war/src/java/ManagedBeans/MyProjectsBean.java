@@ -5,8 +5,10 @@
  */
 package ManagedBeans;
 
+import ejb.ProyectoScrumFacade;
 import ejb.UsuarioScrumFacade;
 import ejb.UsuyproScrumFacade;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +28,9 @@ import model.UsuyproScrum;
 @ManagedBean
 @RequestScoped
 public class MyProjectsBean {
+
+    @EJB
+    private ProyectoScrumFacade proyectoScrumFacade;
     @EJB
     private UsuyproScrumFacade usuyproScrumFacade;
     @EJB
@@ -126,7 +131,13 @@ public class MyProjectsBean {
         
         System.out.println("Proyecto: " + projectId.getIdProyecto());
         loginBean.selectedProject = projectId;
-        return "profile";
+        return "manageProject";
     }
     
+    public String deleteProject(ProyectoScrum project){
+       
+        usuyproScrumCollection.remove(project);
+        proyectoScrumFacade.remove(project);
+        return "myProjects";
+    }
 }
