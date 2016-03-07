@@ -84,7 +84,6 @@ public class TaskBean {
         estados = fromJson;*/
         
         ProyectoScrum selectedProject = loginBean.getSelectedProject();
-        selectedProject = proyectoScrumFacade.find(BigDecimal.valueOf(217));
         byte[] estadoPro = selectedProject.getEstados();
         if(estadoPro != null){
             try {
