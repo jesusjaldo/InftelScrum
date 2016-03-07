@@ -163,8 +163,9 @@ public class ManageProjectBean {
     
     
     public void deleteTask(String id){
-       
-        tareaScrumFacade.remove(tareaScrumFacade.find(id));
+        System.out.println("llego "+id );
+        
+        tareaScrumFacade.remove(tareaScrumFacade.find(Long.valueOf(id)));
     }
     
     public void setTaskStatus(String id, String status){

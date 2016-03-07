@@ -5,9 +5,11 @@
  */
 package ManagedBeans;
 
+import ejb.TareaScrumFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,6 +27,9 @@ import org.primefaces.model.DefaultDashboardModel;
 @ManagedBean
 @ViewScoped
 public class DashboardView implements Serializable {
+    
+    @EJB
+    private TareaScrumFacade tareaScrumFacade;
      
     @ManagedProperty (value = "#{manageProjectBean}")
     private ManageProjectBean manageProjectBean;
@@ -47,7 +52,7 @@ public class DashboardView implements Serializable {
         }         
         
         for(TareaScrum t: manageProjectBean.getTask_list()){  //Add task to column          
-            columns.get(Integer.parseInt(t.getEstado())).addWidget(t.getNombre());   
+            columns.get(Integer.parseInt(t.getEstado())).addWidget("t"+t.getIdTarea().toString());   
         }
              
         for(int i=0; i<manageProjectBean.getStatus().size(); i++){ //Add columns to model
@@ -110,9 +115,15 @@ public class DashboardView implements Serializable {
         
     }
     public void handleClose(CloseEvent event) {
+        
+        System.out.println("cierroooo");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Panel Closed", "Closed panel id:'" + event.getComponent().getId() + "'");
         //DELETE TASK
-        manageProjectBean.deleteTask(event.getComponent().getId());
+        String idT = event.getComponent().getId();
+        String id=idT.substring(1);
+        manageProjectBean.deleteTask(id);
+        
+        //tareaScrumFacade.remove(tareaScrumFacade.find(event.getComponent().getId()));
         addMessage(message);
     }
      

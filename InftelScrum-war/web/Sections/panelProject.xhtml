@@ -37,8 +37,9 @@
 
                                     <c:forEach  items="#{manageProjectBean.task_list}" var="task">
 
-                                        <p:panel closable="true" id="#{task.nombre}" header="#{task.nombre}">
+                                        <p:panel closable="true" id="t#{task.idTarea}" header="#{task.nombre}">
                                             <h:outputText value=""/>
+                                            <p:ajax event="close" listener="#{dashboardView.handleClose}" update="msgs" />
                                         </p:panel>
 
 
