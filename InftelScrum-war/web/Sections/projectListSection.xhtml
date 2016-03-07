@@ -29,7 +29,7 @@
                         <h:outputText value="Descripcion: "/>
                         <h:outputText value="#{project.idProyecto.descripcion}"/>
 
-                        <h:commandButton value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}"/>
+                        <h:commandButton value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" rendered="true"/>
                    
                         <h:commandButton value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"></h:commandButton>
                         

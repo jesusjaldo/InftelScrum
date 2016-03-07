@@ -30,7 +30,9 @@ public class UsuarioScrumFacade extends AbstractFacade<UsuarioScrum> {
     }
     public List <UsuarioScrum> findByEmail (String email){
         List <UsuarioScrum> resultList = getEntityManager().createQuery("SELECT p FROM UsuarioScrum p WHERE p.email LIKE :email").setParameter("email", email).getResultList();
-        em.refresh(resultList.get(0));
+        if(!resultList.isEmpty()){
+            em.refresh(resultList.get(0));
+        }
         return resultList;
     }
     

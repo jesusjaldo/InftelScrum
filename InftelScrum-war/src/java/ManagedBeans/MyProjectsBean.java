@@ -12,11 +12,18 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import model.ProyectoScrum;
 import model.UsuarioScrum;
 import model.UsuyproScrum;
@@ -44,6 +51,8 @@ public class MyProjectsBean {
     protected String invitacion;
     protected String invitar;
     protected List<String> mails;
+    protected Properties properties = new Properties();
+    protected Session session;
 
     /**
      * Creates a new instance of MyProjectsBean
@@ -119,6 +128,11 @@ public class MyProjectsBean {
         usuypro.setIdProyecto(project);
         usuypro.setIdUsuario(usuariosInvitados.get(0));
         usuyproScrumFacade.create(usuypro);
+      //  new SendMailBean(project, invitacion).start();
+     SendMailBean hebra=  new SendMailBean(project, invitacion);
+     hebra.start();
+     
+        
 
     }
 
@@ -143,4 +157,7 @@ public class MyProjectsBean {
         proyectoScrumFacade.remove(project);
         return "myProjects";
     }
+    
+    
+   
 }
