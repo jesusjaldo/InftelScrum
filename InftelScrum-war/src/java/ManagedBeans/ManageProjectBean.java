@@ -7,6 +7,7 @@ package ManagedBeans;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import ejb.FicherosScrumFacade;
 import ejb.ProyectoScrumFacade;
 import ejb.TareaScrumFacade;
 import java.lang.ProcessBuilder.Redirect.Type;
@@ -19,6 +20,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import model.ProyectoScrum;
 import model.TareaScrum;
 
 /**
@@ -29,12 +31,16 @@ import model.TareaScrum;
 @ManagedBean (name = "manageProjectBean")
 @SessionScoped
 public class ManageProjectBean {
+    @EJB
+    private FicherosScrumFacade ficherosScrumFacade;
 
     @EJB
     private TareaScrumFacade tareaScrumFacade;
 
     @EJB
     private ProyectoScrumFacade proyectoScrumFacade;
+    
+    
     
     @ManagedProperty(value = "#{loginBean}")
     protected LoginBean loginBean;
@@ -164,13 +170,22 @@ public class ManageProjectBean {
     
     public void deleteTask(String id){
         System.out.println("llego "+id );
+        TareaScrum find = tareaScrumFacade.find(Long.valueOf(id));
+        tareaScrumFacade.remove(find);
+        loginBean.selectedProject.getTareaScrumCollection().remove(find);
+        proyectoScrumFacade.edit(loginBean.selectedProject);
         
-        tareaScrumFacade.remove(tareaScrumFacade.find(Long.valueOf(id)));
+        if(find.getIdFichero()!=null){
+            System.out.println("tiene fichero");
+            ficherosScrumFacade.remove(find.getIdFichero());
+        }
+   
     }
     
     public void setTaskStatus(String id, String status){
-        
-         tareaScrumFacade.find(id).setEstado(status);
+        TareaScrum find = tareaScrumFacade.find(Long.valueOf(id));
+        find.setEstado(status);
+        tareaScrumFacade.edit(find);
                
     }
 

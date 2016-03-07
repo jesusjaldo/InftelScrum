@@ -5,6 +5,7 @@
  */
 package ManagedBeans;
 
+import ejb.ProyectoScrumFacade;
 import ejb.UsuarioScrumFacade;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,7 +25,11 @@ import model.UsuarioScrum;
 @SessionScoped
 public class LoginBean {
     @EJB
+    private ProyectoScrumFacade proyectoScrumFacade;
+    @EJB
     private UsuarioScrumFacade usuarioScrumFacade;
+    
+    
 
     protected boolean sesion;
     protected UsuarioScrum user;
@@ -70,7 +75,7 @@ public class LoginBean {
     }
 
     public ProyectoScrum getSelectedProject() {
-        return selectedProject;
+        return proyectoScrumFacade.find(selectedProject.getIdProyecto());
     }
 
     public void setSelectedProject(ProyectoScrum selectedProject) {

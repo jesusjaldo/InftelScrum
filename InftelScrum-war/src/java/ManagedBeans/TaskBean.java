@@ -29,6 +29,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import model.FicherosScrum;
 import model.ProyectoScrum;
 import model.TareaScrum;
@@ -181,10 +183,9 @@ public class TaskBean {
         if (!file.getFileName().equals("")) {
 
             byte[] bytes = IOUtils.toByteArray(file.getInputstream());
-            String extension = FilenameUtils.getExtension(file.getFileName());
 
             fichero.setFichero(bytes);
-            fichero.setExt(extension);
+            fichero.setExt(file.getFileName());
 
             ficherosScrumFacade.create(fichero);
             
@@ -199,9 +200,8 @@ public class TaskBean {
         context.addCallbackParam("loggedIn", loggedIn);
         
         loginBean.selectedProject.getTareaScrumCollection().add(t);
-        ProyectoScrum find = proyectoScrumFacade.find(loginBean.selectedProject.getIdProyecto());
-        loginBean.selectedProject=find;
-        
+        proyectoScrumFacade.edit(loginBean.selectedProject);
+
         return "managedProject";
 
     }

@@ -33,6 +33,9 @@ public class DashboardView implements Serializable {
      
     @ManagedProperty (value = "#{manageProjectBean}")
     private ManageProjectBean manageProjectBean;
+    
+    @ManagedProperty(value = "#{loginBean}")
+    protected LoginBean loginBean;
    
     private DashboardModel model;
     private int nstatus;
@@ -51,7 +54,7 @@ public class DashboardView implements Serializable {
             columns.add(new DefaultDashboardColumn());
         }         
         
-        for(TareaScrum t: manageProjectBean.getTask_list()){  //Add task to column          
+        for(TareaScrum t: loginBean.selectedProject.getTareaScrumCollection()){  //Add task to column          
             columns.get(Integer.parseInt(t.getEstado())).addWidget("t"+t.getIdTarea().toString());   
         }
              
@@ -66,6 +69,14 @@ public class DashboardView implements Serializable {
 
     public void setManageProjectBean(ManageProjectBean manageProjectBean) {
         this.manageProjectBean = manageProjectBean;
+    }
+
+    public LoginBean getLoginBean() {
+        return loginBean;
+    }
+
+    public void setLoginBean(LoginBean loginBean) {
+        this.loginBean = loginBean;
     }
 
     public int getNstatus() {
@@ -101,11 +112,16 @@ public class DashboardView implements Serializable {
     }
      
     public void handleReorder(DashboardReorderEvent event) {
+        
+        String idT = event.getWidgetId();
+        String id = idT.substring(1);
+        
         FacesMessage message = new FacesMessage();
         message.setSeverity(FacesMessage.SEVERITY_INFO);
         message.setSummary("Cambio de estado: " + event.getWidgetId());
         message.setDetail("Item index: " + event.getItemIndex() + ", Column index: " + event.getColumnIndex() + ", Sender index: " + event.getSenderColumnIndex());
         
+        manageProjectBean.setTaskStatus(id, event.getColumnIndex().toString());
         addMessage(message);
     }
      
