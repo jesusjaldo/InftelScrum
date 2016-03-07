@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import model.ProyectoScrum;
 import model.UsuarioScrum;
@@ -108,6 +109,8 @@ public class LoginBean {
     
     public String salir(){
         sesion = false;
+        ExternalContext fc = FacesContext.getCurrentInstance().getExternalContext();
+        fc.invalidateSession();
         return "index";
     }
     

@@ -70,9 +70,9 @@ public class ManageProjectBean {
         
         name_project = loginBean.selectedProject.getNombre();
         
-        TareaScrum tarea = new TareaScrum();
-        tarea.setNombre("tarea1");
-        loginBean.selectedProject.getTareaScrumCollection().add(tarea); //Añado una tarea porque no tiene ninguna
+//        TareaScrum tarea = new TareaScrum();
+//        tarea.setNombre("tarea1");
+        //loginBean.selectedProject.getTareaScrumCollection().add(tarea); //Añado una tarea porque no tiene ninguna
         task_list = loginBean.selectedProject.getTareaScrumCollection();
       
         

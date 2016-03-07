@@ -50,6 +50,7 @@ public class MyProjectsBean {
      */
 
     public MyProjectsBean() {
+        
     }
 
     @PostConstruct
@@ -126,6 +127,8 @@ public class MyProjectsBean {
 
         System.out.println("Proyecto: " + projectId.getIdProyecto());
         loginBean.selectedProject = projectId;
+        BigDecimal idProyecto = loginBean.getSelectedProject().getIdProyecto();
+        loginBean.setSelectedProject(proyectoScrumFacade.find(idProyecto));
         return "manageProject";
     }
 

@@ -156,7 +156,7 @@ public class TaskBean {
         this.loginBean = loginBean;
     }
 
-    public void login(ActionEvent event) throws IOException {
+    public String login(ActionEvent event) throws IOException {
 
         TareaScrum t = new TareaScrum();
         FicherosScrum fichero = new FicherosScrum();
@@ -178,7 +178,7 @@ public class TaskBean {
         Calendar cal = Calendar.getInstance();
         t.setFechaIni(cal.getTime());
 
-        if (file != null) {
+        if (!file.getFileName().equals("")) {
 
             byte[] bytes = IOUtils.toByteArray(file.getInputstream());
             String extension = FilenameUtils.getExtension(file.getFileName());
@@ -187,14 +187,22 @@ public class TaskBean {
             fichero.setExt(extension);
 
             ficherosScrumFacade.create(fichero);
+            
+            t.setIdFichero(fichero);
         }
 
-        t.setIdFichero(fichero);
+        
         tareaScrumFacade.create(t);
 
         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarea", "La tarea se ha creado correctamente");
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("loggedIn", loggedIn);
+        
+        loginBean.selectedProject.getTareaScrumCollection().add(t);
+        ProyectoScrum find = proyectoScrumFacade.find(loginBean.selectedProject.getIdProyecto());
+        loginBean.selectedProject=find;
+        
+        return "managedProject";
 
     }
 
