@@ -137,10 +137,12 @@ public class MyProjectsBean {
     }
 
     
-    public String deleteProject(ProyectoScrum project){
+    public String deleteProject(UsuyproScrum project){
+        usuyproScrumFacade.remove(project);
        
-        usuyproScrumCollection.remove(project);
-        proyectoScrumFacade.remove(project);
+        proyectoScrumFacade.remove(project.getIdProyecto());
+        loginBean.getUser().getUsuyproScrumCollection().remove(project);
+        loginBean.getUser().getProyectoScrumCollection().remove(project.getIdProyecto());
         return "myProjects";
     }
 }
