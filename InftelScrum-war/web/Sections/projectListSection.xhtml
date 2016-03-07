@@ -33,7 +33,7 @@
                    
                         <h:commandButton value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"></h:commandButton>
                         
-                        <h:commandButton value="Borrar" action="#{myProjectsBean.deleteProject(project.idProyecto)}"/>
+                        <h:commandButton value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
                     </p:panelGrid>
                 </p:tab>      
             </p:accordionPanel>

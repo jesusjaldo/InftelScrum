@@ -47,7 +47,7 @@ public class DashboardView implements Serializable {
         }         
         
         for(TareaScrum t: manageProjectBean.getTask_list()){  //Add task to column          
-            columns.get(0).addWidget(t.getNombre());   
+            columns.get(Integer.parseInt(t.getEstado())).addWidget(t.getNombre());   
         }
              
         for(int i=0; i<manageProjectBean.getStatus().size(); i++){ //Add columns to model
@@ -119,6 +119,7 @@ public class DashboardView implements Serializable {
     public void handleToggle(ToggleEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, event.getComponent().getId() + " toggled", "Status:" + event.getVisibility().name());
         //CHANGE TASK STATUS
+        
         manageProjectBean.setTaskStatus(event.getComponent().getId(), event.getVisibility().name());
         addMessage(message);
     }

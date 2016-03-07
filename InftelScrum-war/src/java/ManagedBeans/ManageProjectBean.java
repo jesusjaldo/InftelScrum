@@ -45,7 +45,7 @@ public class ManageProjectBean {
 
     private Collection<TareaScrum> task_list;
     
-    private ArrayList<Status> status;
+    private ArrayList<Status> status = new ArrayList<>();
     
     private String  tareas;
     
@@ -59,12 +59,10 @@ public class ManageProjectBean {
         byte [] json = loginBean.selectedProject.getEstados();
         
         String str = new String(json, StandardCharsets.UTF_8);
-        
-        gson.toJson(str);
-        
+
         
         java.lang.reflect.Type token = new TypeToken<Collection<Status>>() {}.getType();
-        status = gson.fromJson(str, token);
+        status = gson.fromJson(str, status.getClass());
         
         
         this.tareas = str;
@@ -72,9 +70,9 @@ public class ManageProjectBean {
         
         name_project = loginBean.selectedProject.getNombre();
         
-        TareaScrum tarea = new TareaScrum();
-        tarea.setNombre("tarea1");
-        loginBean.selectedProject.getTareaScrumCollection().add(tarea); //Añado una tarea porque no tiene ninguna
+//        TareaScrum tarea = new TareaScrum();
+//        tarea.setNombre("tarea1");
+        //loginBean.selectedProject.getTareaScrumCollection().add(tarea); //Añado una tarea porque no tiene ninguna
         task_list = loginBean.selectedProject.getTareaScrumCollection();
       
         
@@ -141,6 +139,15 @@ public class ManageProjectBean {
     }
 
     public ArrayList<Status> getStatus() {
+        
+        Gson gson = new Gson();
+        byte [] json = loginBean.selectedProject.getEstados();
+        
+        String str = new String(json, StandardCharsets.UTF_8);
+
+        
+        java.lang.reflect.Type token = new TypeToken<Collection<Status>>() {}.getType();
+        status = gson.fromJson(str, status.getClass());
         return status;
     }
 
