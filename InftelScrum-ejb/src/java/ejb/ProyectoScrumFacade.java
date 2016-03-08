@@ -19,7 +19,7 @@ import model.ProyectoScrum;
 @Stateless
 public class ProyectoScrumFacade extends AbstractFacade<ProyectoScrum> {
     @PersistenceContext(unitName = "InftelScrum-ejbPU")
-    private EntityManager em;
+    public EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

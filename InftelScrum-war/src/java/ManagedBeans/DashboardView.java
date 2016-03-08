@@ -5,9 +5,11 @@
  */
 package ManagedBeans;
 
+import ejb.TareaScrumFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,9 +27,15 @@ import org.primefaces.model.DefaultDashboardModel;
 @ManagedBean
 @ViewScoped
 public class DashboardView implements Serializable {
+    
+    @EJB
+    private TareaScrumFacade tareaScrumFacade;
      
     @ManagedProperty (value = "#{manageProjectBean}")
     private ManageProjectBean manageProjectBean;
+    
+    @ManagedProperty(value = "#{loginBean}")
+    protected LoginBean loginBean;
    
     private DashboardModel model;
     private int nstatus;
@@ -46,8 +54,8 @@ public class DashboardView implements Serializable {
             columns.add(new DefaultDashboardColumn());
         }         
         
-        for(TareaScrum t: manageProjectBean.getTask_list()){  //Add task to column          
-            columns.get(Integer.parseInt(t.getEstado())).addWidget(t.getNombre());   
+        for(TareaScrum t: loginBean.selectedProject.getTareaScrumCollection()){  //Add task to column          
+            columns.get(Integer.parseInt(t.getEstado())).addWidget("t"+t.getIdTarea().toString());   
         }
              
         for(int i=0; i<manageProjectBean.getStatus().size(); i++){ //Add columns to model
@@ -61,6 +69,14 @@ public class DashboardView implements Serializable {
 
     public void setManageProjectBean(ManageProjectBean manageProjectBean) {
         this.manageProjectBean = manageProjectBean;
+    }
+
+    public LoginBean getLoginBean() {
+        return loginBean;
+    }
+
+    public void setLoginBean(LoginBean loginBean) {
+        this.loginBean = loginBean;
     }
 
     public int getNstatus() {
@@ -96,11 +112,16 @@ public class DashboardView implements Serializable {
     }
      
     public void handleReorder(DashboardReorderEvent event) {
+        
+        String idT = event.getWidgetId();
+        String id = idT.substring(1);
+        
         FacesMessage message = new FacesMessage();
         message.setSeverity(FacesMessage.SEVERITY_INFO);
         message.setSummary("Cambio de estado: " + event.getWidgetId());
         message.setDetail("Item index: " + event.getItemIndex() + ", Column index: " + event.getColumnIndex() + ", Sender index: " + event.getSenderColumnIndex());
         
+        manageProjectBean.setTaskStatus(id, event.getColumnIndex().toString());
         addMessage(message);
     }
      
@@ -110,9 +131,15 @@ public class DashboardView implements Serializable {
         
     }
     public void handleClose(CloseEvent event) {
+        
+        System.out.println("cierroooo");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Panel Closed", "Closed panel id:'" + event.getComponent().getId() + "'");
         //DELETE TASK
-        manageProjectBean.deleteTask(event.getComponent().getId());
+        String idT = event.getComponent().getId();
+        String id=idT.substring(1);
+        manageProjectBean.deleteTask(id);
+        
+        //tareaScrumFacade.remove(tareaScrumFacade.find(event.getComponent().getId()));
         addMessage(message);
     }
      
