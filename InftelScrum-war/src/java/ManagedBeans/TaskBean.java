@@ -158,7 +158,7 @@ public class TaskBean {
         this.loginBean = loginBean;
     }
 
-    public String login(ActionEvent event) throws IOException {
+    public String login() throws IOException {
 
         TareaScrum t = new TareaScrum();
         FicherosScrum fichero = new FicherosScrum();
@@ -202,7 +202,7 @@ public class TaskBean {
         loginBean.selectedProject.getTareaScrumCollection().add(t);
         proyectoScrumFacade.edit(loginBean.selectedProject);
 
-        return "managedProject";
+        return "manageProject";
 
     }
 

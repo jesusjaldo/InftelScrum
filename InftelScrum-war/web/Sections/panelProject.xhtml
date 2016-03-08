@@ -39,11 +39,11 @@
 
                                         <p:panel closable="true" id="t#{task.idTarea}" header="#{task.nombre}">
                                             <h:outputText value="#{task.descripcion}"/>
-                                            <h:form>
+                                            
                                                 <p:commandButton rendered="#{task.idFichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-                                                    <p:fileDownload value="#{fileDownloadView.file}" />
+                                                    <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
                                                 </p:commandButton>
-                                            </h:form>
+                                           
 
                                             <script type="text/javascript">
                                                 function start() {

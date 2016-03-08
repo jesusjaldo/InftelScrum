@@ -5,10 +5,12 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:q="http://xmlns.jcp.org/jsf/passthrough">
     <h:form enctype="multipart/form-data">            
         <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
             <p:graphicImage library="img" name="1457129870_edit.png" />
+           
         </h:outputLink>
         <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
@@ -31,13 +33,16 @@
                 <p:calendar id="time" value="#{taskBean.tiempo}" pattern="HH:mm" timeOnly="true"  />
 
                 <p:outputLabel for="file" value="Archivo:" />
-                <p:fileUpload id="file" value="#{taskBean.file}" mode="simple" skinSimple="true"/>
+                <p:fileUpload id="file" value="#{taskBean.file}" q:accept=".pdf,.jar,.txt,image/*" mode="simple" skinSimple="true" sizeLimit="1000000"/>
                 <br/>
                 <p:growl id="messages" showDetail="true" />
 
                 <f:facet name="footer">
-                    <p:commandButton value="Insertar" ajax="false" update="growl" actionListener="#{taskBean.login}"
-                                     oncomplete="handleLoginRequest(xhr, status, args)" />
+                    <p:commandButton value="Insertar" ajax="false" update="growl" action="#{taskBean.login()}"
+                                     oncomplete="handleLoginRequest(xhr, status, args)" >
+                        <h:link value="Nuevo Proyecto" outcome="newProject"/>
+                    </p:commandButton>
+                    
                 </f:facet>  
             </h:panelGrid>
         </p:dialog>
