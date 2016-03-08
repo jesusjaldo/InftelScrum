@@ -5,6 +5,7 @@
  */
 package ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,9 +31,9 @@ public class UsuyproScrumFacade extends AbstractFacade<UsuyproScrum> {
         super(UsuyproScrum.class);
     }
     
-    public UsuyproScrum getProjectFromUSerAndProject (ProyectoScrum project, UsuarioScrum user){
+    public List <UsuyproScrum> getProjectFromUSerAndProject (ProyectoScrum project, UsuarioScrum user){
        
-       return (UsuyproScrum) getEntityManager().createNamedQuery("UsuyproScrum.findByIdUsuyIdPro").setParameter("idProyecto", project).setParameter("idUsuario", user).getSingleResult();
+       return (List <UsuyproScrum>) getEntityManager().createNamedQuery("UsuyproScrum.findByIdUsuyIdPro").setParameter("idProyecto", project).setParameter("idUsuario", user).getResultList();
           
     }
 }

@@ -15,9 +15,13 @@ import java.util.List;
 import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -27,6 +31,7 @@ import javax.mail.internet.MimeMessage;
 import model.ProyectoScrum;
 import model.UsuarioScrum;
 import model.UsuyproScrum;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -35,6 +40,9 @@ import model.UsuyproScrum;
 @ManagedBean
 @RequestScoped
 public class MyProjectsBean {
+
+    @EJB
+    private UsuyproScrumFacade usuyproScrumFacade1;
 
     @EJB
     private ProyectoScrumFacade proyectoScrumFacade;
@@ -53,13 +61,13 @@ public class MyProjectsBean {
     protected List<String> mails;
     protected Properties properties = new Properties();
     protected Session session;
+    
 
     /**
      * Creates a new instance of MyProjectsBean
      */
-
     public MyProjectsBean() {
-        
+
     }
 
     @PostConstruct
@@ -111,6 +119,8 @@ public class MyProjectsBean {
         this.mails = mails;
     }
 
+
+
     public List<String> completeMail(String query) {
         List<String> results = new ArrayList<>();
         for (String result : mails) {
@@ -121,20 +131,36 @@ public class MyProjectsBean {
         return results;
     }
 
-    public void enviar(ProyectoScrum project) {
-
+    public String enviar(ProyectoScrum project) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesMessage message = null;
         List<UsuarioScrum> usuariosInvitados = usuarioScrumFacade.findByEmail(invitacion);
-        UsuyproScrum usuypro = new UsuyproScrum();
+        if (!usuariosInvitados.isEmpty()) {
+            List<UsuyproScrum> miembros = usuyproScrumFacade1.getProjectFromUSerAndProject(project, usuariosInvitados.get(0));
+            UsuyproScrum usuypro = new UsuyproScrum();
+            if (miembros.isEmpty()) {
+                usuypro.setIdProyecto(project);
+                usuypro.setIdUsuario(usuariosInvitados.get(0));
+                usuyproScrumFacade.create(usuypro);
+                SendMailBean hebra = new SendMailBean(project, invitacion);
+                hebra.start();
+               
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Invitacion", "El usuario " + invitacion + " ha sido invitado");
 
-        usuypro.setIdProyecto(project);
-        usuypro.setIdUsuario(usuariosInvitados.get(0));
-        usuyproScrumFacade.create(usuypro);
-      //  new SendMailBean(project, invitacion).start();
-     SendMailBean hebra=  new SendMailBean(project, invitacion);
-     hebra.start();
-     
-        
+            } else {
+               
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Invitacion", "El usuario " + invitacion + " ya esta añadido");
 
+            }
+        } else if(invitacion==null) {
+           
+         message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Invitacion", " Campo vacio!  ");
+        }else{
+            message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Invitacion", "Error, no existe ningún usuario con email "+ invitacion);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+        return "myProjects";
     }
 
     public String goToProject(ProyectoScrum projectId) {
@@ -153,16 +179,13 @@ public class MyProjectsBean {
         return "editProject";
     }
 
-    
-    public String deleteProject(UsuyproScrum project){
+    public String deleteProject(UsuyproScrum project) {
         usuyproScrumFacade.remove(project);
-       
+
         proyectoScrumFacade.remove(project.getIdProyecto());
         loginBean.getUser().getUsuyproScrumCollection().remove(project);
         loginBean.getUser().getProyectoScrumCollection().remove(project.getIdProyecto());
         return "myProjects";
     }
-    
-    
-   
+
 }
