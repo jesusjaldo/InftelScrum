@@ -9,7 +9,24 @@
     <div class="row">
         <div class="box">
             <div class="col-lg-12" >
+                <h:form class="form-horizontal">
 
+                    <h:outputLabel   class="col-sm-3 control-label">Estados en el proyecto :</h:outputLabel>
+                    <h:selectOneMenu value="#{newProjectBean.numStatus}" class="btn btn-primary">
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+                        <f:selectItem itemValue="4" itemLabel="4" />
+                        <f:selectItem itemValue="5" itemLabel="5" />
+                        <f:selectItem itemValue="6" itemLabel="6" />
+                        <f:selectItem itemValue="7" itemLabel="7" />
+                        <f:selectItem itemValue="8" itemLabel="8" />
+                    </h:selectOneMenu>	
+                    <h:commandButton value="Crear estados" action="#{newProjectBean.doObtenerNumEstados}" class="btn btn-primary" style="margin-left: 10%"/>
+                    <br/><br/><br/>
+
+                </h:form>
+                <br/>
                 <h:form class="form-horizontal">
                     <div class="form-group">
                         <h:outputLabel  for="titulo" class="col-sm-2 control-label">Titulo :</h:outputLabel>
@@ -32,32 +49,19 @@
 
 
 
-                    <br/><br/><h:outputLabel   class="col-sm-3 control-label">Estados en el proyecto :</h:outputLabel>
-                    <h:selectOneMenu value="#{newProjectBean.numStatus}" class="btn btn-primary">
-                        <f:selectItem itemValue="1" itemLabel="1" />
-                        <f:selectItem itemValue="2" itemLabel="2" />
-                        <f:selectItem itemValue="3" itemLabel="3" />
-                        <f:selectItem itemValue="4" itemLabel="4" />
-                        <f:selectItem itemValue="5" itemLabel="5" />
-                        <f:selectItem itemValue="6" itemLabel="6" />
-                        <f:selectItem itemValue="7" itemLabel="7" />
-                        <f:selectItem itemValue="8" itemLabel="8" />
-                    </h:selectOneMenu>	
 
-                    <h:commandButton value="Crear estados" action="#{newProjectBean.doObtenerNumEstados}" class="btn btn-primary" style="margin-left: 10%">
-                    </h:commandButton>
-      
+
                     <br/>
                     <ui:repeat  var="estados" value="#{newProjectBean.status}" varStatus="variable">
                         <br/><br/><h:outputLabel   class="col-sm-2 control-label">Estado #{variable.index}:</h:outputLabel>
 
-                       
+
                         <div class="col-sm-10">
                             <h:inputText  value="#{newProjectBean.status[variable.index].nombre}"  id="estados" required="true" requiredMessage="Estado es obligatorio" /><br/>
                             <h:message class="error" for="estados" style="color: #c7254e"/>
 
                         </div>
-                        
+
                     </ui:repeat>
 
                     <br/><br/>

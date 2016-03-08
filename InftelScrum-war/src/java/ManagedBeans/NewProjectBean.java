@@ -5,7 +5,6 @@
  */
 package ManagedBeans;
 
-import ClasesAux.Status;
 import com.google.gson.Gson;
 import ejb.ProyectoScrumFacade;
 import ejb.UsuarioScrumFacade;
@@ -28,7 +27,7 @@ import model.UsuyproScrum;
  */
 @ManagedBean
 @SessionScoped
-public class newProjectBean {
+public class NewProjectBean {
 
     @EJB
     private UsuyproScrumFacade usuyproScrumFacade;
@@ -155,7 +154,7 @@ public class newProjectBean {
         status = new ArrayList<>();
         //int i = Integer.parseInt(username);
         System.out.println("numero " + numStatus);
-        Status est = new Status();
+        Status est;
         for (int j = 0; j < numStatus; j++) {
             est = new Status("", j);
 
@@ -165,7 +164,7 @@ public class newProjectBean {
 
         System.out.println("");
 
-        return "";
+        return "newProject";
     }
 
 }

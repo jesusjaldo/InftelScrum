@@ -13,6 +13,9 @@ public class Status {
     private int posicion;
     private String nombre;
 
+    public Status(){
+        
+    }
     public Status(String nombre,int pos) {
         this.posicion = pos;
         this.nombre = nombre;

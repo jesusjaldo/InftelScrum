@@ -5,22 +5,17 @@
  */
 package ManagedBeans;
 
-import ClasesAux.Status;
+
 import com.google.gson.Gson;
 import ejb.ProyectoScrumFacade;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import model.ProyectoScrum;
-import model.UsuyproScrum;
-import webSocket.MessageChat;
 
 /**
  *
