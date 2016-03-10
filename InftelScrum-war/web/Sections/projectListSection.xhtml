@@ -29,12 +29,12 @@
                         <h:outputText value="#{project.idProyecto.descripcion}"/>
 
                         <f:facet name="footer">
-                            <p:commandButton class="btn-primary" value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"/>
+                            <h:commandButton class="botonBonito" value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"/>
 
-                            <p:commandButton class="btn-primary" value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
+                            <h:commandButton class="botonBonito" value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
 
                             <p:spacer height="50"/>
-                            <p:commandButton class="btn-primary"  value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" update="messages">
+                            <p:commandButton  value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" update="messages">
                                 <f:ajax render="invitado" resetValues="true"/>
                             </p:commandButton>
                             <p:autoComplete  style="" autoHighlight=""  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}">
