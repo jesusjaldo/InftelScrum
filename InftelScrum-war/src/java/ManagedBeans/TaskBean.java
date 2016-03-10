@@ -46,6 +46,7 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @RequestScoped
 public class TaskBean {
+
     @EJB
     private ProyectoScrumFacade proyectoScrumFacade;
 
@@ -75,19 +76,18 @@ public class TaskBean {
     @PostConstruct
     public void init() {
 
-/*        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader("C:\\Users\\RMA\\Documents\\NetBeansProjects\\InftelScrum\\InftelScrum-war\\web\\resources\\json\\data.json"));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TaskBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Gson r = new Gson();
-        Estados[] fromJson = r.fromJson(br, Estados[].class);
-        estados = fromJson;*/
-        
+        /*        BufferedReader br = null;
+         try {
+         br = new BufferedReader(new FileReader("C:\\Users\\RMA\\Documents\\NetBeansProjects\\InftelScrum\\InftelScrum-war\\web\\resources\\json\\data.json"));
+         } catch (FileNotFoundException ex) {
+         Logger.getLogger(TaskBean.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         Gson r = new Gson();
+         Estados[] fromJson = r.fromJson(br, Estados[].class);
+         estados = fromJson;*/
         ProyectoScrum selectedProject = loginBean.getSelectedProject();
         byte[] estadoPro = selectedProject.getEstados();
-        if(estadoPro != null){
+        if (estadoPro != null) {
             try {
                 InputStream input = new ByteArrayInputStream(estadoPro);
                 Gson g = new Gson();
@@ -188,22 +188,25 @@ public class TaskBean {
             fichero.setExt(file.getFileName());
 
             ficherosScrumFacade.create(fichero);
-            
+
             t.setIdFichero(fichero);
         }
 
-        
         tareaScrumFacade.create(t);
 
         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarea", "La tarea se ha creado correctamente");
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("loggedIn", loggedIn);
-        
+
         loginBean.selectedProject.getTareaScrumCollection().add(t);
         proyectoScrumFacade.edit(loginBean.selectedProject);
 
         return "manageProject";
 
+    }
+
+    public void editar() {
+        
     }
 
 }

@@ -12,33 +12,36 @@
     <h:form rendered="#{myProjectsBean.usuyproScrumCollection.size() gt 0}" id="invitado">
 
         <p:growl id="msgs" showDetail="true" />
-        <p:autoComplete  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}">
-            <p:ajax update="@form" />
-        </p:autoComplete>    
+
         <ui:repeat var="project" value="#{myProjectsBean.usuyproScrumCollection}">            
 
             <p:accordionPanel multiple="true">
                 <p:tab title="#{project.idProyecto.nombre}">
-                    <p:panelGrid columns="2" layout="grid">
-                       
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-responsive">
+
                         <h:outputText value="Acceder"/>
                         <h:commandButton action="#{myProjectsBean.goToProject(project.idProyecto)}"  style="width:25px;height:25px" image="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
-
-
 
                         <h:outputText value="ID: "/>
                         <h:outputText value="#{project.idProyecto.idProyecto}"/>
 
                         <h:outputText value="Descripcion: "/>
                         <h:outputText value="#{project.idProyecto.descripcion}"/>
-                        
-                        <p:commandButton  value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" update="messages">
-                             <f:ajax render="invitado" resetValues="true"/>
-                        </p:commandButton>
-                        <h:commandButton value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"></h:commandButton>
 
-                        <h:commandButton value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
-                        <p:messages id="messages" showDetail="true" closable="true" severity="info,warn,fatal" />
+                        <f:facet name="footer">
+                            <p:commandButton class="btn-primary" value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"/>
+
+                            <p:commandButton class="btn-primary" value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
+
+                            <p:spacer height="50"/>
+                            <p:commandButton class="btn-primary"  value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" update="messages">
+                                <f:ajax render="invitado" resetValues="true"/>
+                            </p:commandButton>
+                            <p:autoComplete  style="" autoHighlight=""  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}">
+                                <p:ajax update="@form" />
+                            </p:autoComplete> 
+                            <p:messages id="messages" showDetail="true" closable="true" severity="info,warn,fatal" />
+                        </f:facet>
                     </p:panelGrid>
                 </p:tab>      
             </p:accordionPanel>
