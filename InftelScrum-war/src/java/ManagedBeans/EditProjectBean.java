@@ -23,12 +23,12 @@ import model.ProyectoScrum;
  */
 @ManagedBean
 @RequestScoped
-public class EditProject {
+public class EditProjectBean {
     @EJB
     private ProyectoScrumFacade proyectoScrumFacade;
 
     /**
-     * Creates a new instance of EditProject
+     * Creates a new instance of EditProjectBean
      */
     
     @ManagedProperty(value = "#{loginBean}")
@@ -39,7 +39,7 @@ public class EditProject {
     
     protected Gson gson;
         
-    public EditProject() {
+    public EditProjectBean() {
     }
     
     @PostConstruct
