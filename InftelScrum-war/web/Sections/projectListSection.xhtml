@@ -29,9 +29,9 @@
                         <h:outputText value="#{project.idProyecto.descripcion}"/>
 
                         <f:facet name="footer">
-                            <h:commandButton class="botonBonito" value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"/>
+                            <h:commandButton class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only myButton" value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"/>
 
-                            <h:commandButton class="botonBonito" value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
+                            <h:commandButton class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only myButton" value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
 
                             <p:spacer height="50"/>
                             <p:commandButton  value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" update="messages">
