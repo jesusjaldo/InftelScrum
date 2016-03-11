@@ -19,7 +19,6 @@
     <div class="row">
         <div class="box">
             <div class="col-lg-12">
-
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <p:outputLabel value="#{loginBean.selectedProject.nombre}"/>
@@ -27,6 +26,7 @@
                         <h2 hidden="true" id="projectid">#{loginBean.selectedProject.idProyecto}</h2>
                     </div>
                     <div class="panel-body">
+                        
                         <div style="height:500px" >
                             <h:form id="formulario">
                                 <p:growl id="msgs" showDetail="true" />
@@ -39,43 +39,43 @@
 
                                     <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs"  />
 
-                                    <c:forEach  items="#{loginBean.selectedProject.tareaScrumCollection}" var="task">
+                                    <c:forEach  items="#{loginBean.selectedProject.tareaScrumCollection}" var="tareaS">
 
-                                        <p:panel closable="true" toggleable="true" id="t#{task.idTarea}" header="#{task.nombre}">
-                                            <p:commandButton value="Editar" type="button" onclick="PF('dlgE#{task.idTarea}').show();" action="#{taskBean.cargarDatos(task)}" /> 
-                                            <p:commandButton value="Detalles" type="button" onclick="PF('dlg#{task.idTarea}').show();" action="#{taskBean.cargarDatos(task)}" /> 
+                                        <p:panel closable="true" toggleable="true" id="t#{tareaS.idTarea}" header="#{tareaS.nombre}">
+                                            <p:commandButton value="Editar" type="button" onclick="PF('dlgE#{tareaS.idTarea}').show();"/> 
+                                            <p:commandButton value="Detalles" type="button" onclick="PF('dlg#{tareaS.idTarea}').show();" /> 
 
 
-                                            <p:dialog header="Detalles de la tarea" style="overflow-y: auto;" widgetVar="dlg#{task.idTarea}" modal="true" minimizable="true"  closeOnEscape="true" closable="true" responsive="true">
+                                            <p:dialog header="Detalles de la tarea" style="overflow-y: auto;" widgetVar="dlg#{tareaS.idTarea}" modal="true" minimizable="true"  closeOnEscape="true" closable="true" responsive="true">
                                                 <h:panelGrid border="1" columns="2" cellpadding="5">
                                                     <p:outputLabel value="Descripción: "/>
-                                                    <h:outputLabel value=" #{task.descripcion}"/>
+                                                    <h:outputLabel value=" #{tareaS.descripcion}"/>
                                                     <p:outputLabel value="Usuario: " />
-                                                    <h:outputText value=" #{task.idUsuario.nombre}"/>
+                                                    <h:outputText value=" #{tareaS.idUsuario.nombre}"/>
                                                     <p:outputLabel value="Fecha Inicio: " />
-                                                    <h:outputText value=" #{task.fechaIni}">
+                                                    <h:outputText value=" #{tareaS.fechaIni}">
                                                         <f:convertDateTime locale="es" pattern="HH:mm" />
                                                     </h:outputText>
                                                     <p:outputLabel value="Tiempo estimado:" />
-                                                    <h:outputText value=" #{task.tiempoEstimado}">
+                                                    <h:outputText value=" #{tareaS.tiempoEstimado}">
                                                         <f:convertDateTime pattern="HH:mm" />
                                                     </h:outputText>
-                                                    <p:outputLabel value="Fichero :" rendered="#{task.idFichero!=null}"/>
-                                                    <p:commandButton rendered="#{task.idFichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-                                                        <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
+                                                    <p:outputLabel value="Fichero :" rendered="#{tareaS.idFichero!=null}"/>
+                                                    <p:commandButton rendered="#{tareaS.idFichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{fileDownloadView.fileMon(tareaS)}" />
                                                     </p:commandButton>
                                                     
                                                 </h:panelGrid>
                                             </p:dialog>
 
-                                            <p:dialog header="Editar Tarea" widgetVar="dlgE#{task.idTarea}" resizable="false" >
+                                            <p:dialog header="Editar Tarea" widgetVar="dlgE#{tareaS.idTarea}" resizable="false" >
                                                 <h:panelGrid columns="2" cellpadding="5">
                                                     <h:outputLabel for="titulo" value="Título:" />
-                                                    <p:inputText id="titulo"  value="#{task.nombre}" required="true" label="titulo" />
+                                                    <p:inputText id="titulo"  value="#{taskBean.titulo}" required="true" label="titulo" />
                                                     
 
                                                     <h:outputLabel for="descripcion" value="Descripcion:" />
-                                                    <p:inputTextarea id="descripcion" value="#{task.descripcion}" autoResize="false" scrollHeight="150" required="true" label="descripcion" />
+                                                    <p:inputTextarea id="descripcion" value="#{taskBean.descripcion}" autoResize="false" scrollHeight="150" required="true" label="descripcion" />
 
                                                     <p:outputLabel for="console" value="Estados:" />
                                                     <p:selectOneMenu id="console" value="#{taskBean.estadoSeleccionado}" style="width:150px">
@@ -85,7 +85,7 @@
                                                     </p:selectOneMenu>
 
                                                     <p:outputLabel for="time" value="Tiempo:" />
-                                                    <p:calendar id="time" value="#{task.tiempoEstimado}" pattern="HH:mm" timeOnly="true"  />
+                                                    <p:calendar id="time" value="#{taskBean.tiempo}" pattern="HH:mm" timeOnly="true"  />
 
                                                     <p:outputLabel for="file" value="Archivo:" />
                                                     <p:fileUpload id="file" value="#{taskBean.file}" accept=".pdf,.jar,.txt,image/*" mode="simple" skinSimple="true" sizeLimit="1000000"/>
@@ -93,7 +93,7 @@
                                                     <p:growl id="messages" showDetail="true" />
 
                                                     <f:facet name="footer">
-                                                        <p:commandButton value="Editar" ajax="false" update="growl" action="#{taskBean.editar()}"
+                                                        <p:commandButton value="Editar" ajax="false" update="growl" action="#{taskBean.editar(tareaS)}"
                                                                          oncomplete="handleLoginRequest(xhr, status, args)" >
                                                         </p:commandButton>
 

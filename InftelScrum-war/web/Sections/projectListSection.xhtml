@@ -12,7 +12,9 @@
     <h:form rendered="#{myProjectsBean.usuyproScrumCollection.size() gt 0}" id="invitado">
 
         <p:growl id="msgs" showDetail="true" />
-
+        <p:autoComplete  style="" autoHighlight=""  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}">
+            <p:ajax update="@form" />
+        </p:autoComplete>
         <ui:repeat var="project" value="#{myProjectsBean.usuyproScrumCollection}">            
 
             <p:accordionPanel multiple="true">
@@ -36,10 +38,7 @@
                             <p:spacer height="50"/>
                             <p:commandButton  value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" update="messages">
                                 <f:ajax render="invitado" resetValues="true"/>
-                            </p:commandButton>
-                            <p:autoComplete  style="" autoHighlight=""  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}">
-                                <p:ajax update="@form" />
-                            </p:autoComplete> 
+                            </p:commandButton> 
                             <p:messages id="messages" showDetail="true" closable="true" severity="info,warn,fatal" />
                         </f:facet>
                     </p:panelGrid>

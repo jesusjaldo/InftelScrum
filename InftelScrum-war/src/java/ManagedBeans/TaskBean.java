@@ -15,10 +15,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -28,13 +29,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import model.FicherosScrum;
 import model.ProyectoScrum;
 import model.TareaScrum;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
@@ -205,8 +202,42 @@ public class TaskBean {
 
     }
 
-    public void editar() {
+    public String editar(TareaScrum tarea) throws IOException {
+        FicherosScrum fichero = new FicherosScrum();
+        TareaScrum tareaModificada = new TareaScrum();
+        if (file != null) {
+            if (!file.getFileName().equals("")) {
+                byte[] bytes = IOUtils.toByteArray(file.getInputstream());
+
+                fichero.setFichero(bytes);
+                fichero.setExt(file.getFileName());
+
+                ficherosScrumFacade.create(fichero);
+
+                tareaModificada.setIdFichero(fichero);
+            }
+        }
+
+        tareaModificada.setNombre(titulo);
+        tareaModificada.setDescripcion(descripcion);
+        tareaModificada.setTiempoEstimado(tiempo);
+        tareaModificada.setEstado(estadoSeleccionado);
+        tareaModificada.setIdUsuario(loginBean.user);
+        tareaModificada.setIdTarea(tarea.getIdTarea());
+        tareaModificada.setIdProyecto(loginBean.selectedProject);
+        tareaModificada.setFechaIni(tarea.getFechaIni());
+        tareaModificada.setFechaFin(tarea.getFechaFin());
         
+        Collection<TareaScrum> tareaScrumCollection = loginBean.selectedProject.getTareaScrumCollection();
+        for (TareaScrum t : tareaScrumCollection) {
+            if (Objects.equals(t.getIdTarea(), tarea.getIdTarea())) {
+                tareaScrumCollection.remove(t);
+                tareaScrumCollection.add(tareaModificada);
+                proyectoScrumFacade.edit(loginBean.selectedProject);
+                tareaScrumFacade.edit(tareaModificada);
+            }
+        }
+        return "manageProject"; 
     }
 
 }
