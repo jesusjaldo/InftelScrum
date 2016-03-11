@@ -15,18 +15,12 @@
                 <h:form>
                     <p:panel id="panel" header="Log-in Google" style="margin-bottom:10px; ">
                         <div class="g-signin2"  data-onsuccess="onSignIn" wdata-theme="dark"></div>
-
-
-
-
                         <input id="nombre" type="hidden" name="nombre" value =""></input>
                         <input id="imagen" type="hidden" name="imagen" value =""></input>
                         <input id="email" type="hidden" name="email" value =""></input>
                         <input id="token" type="hidden" name="token" value =""></input>    
                         <input id="ac_token" type="hidden" name="ac_token" value =""></input> 
-
                         <input id="logout" type="hidden" name="logout" value =""></input>
-
                         <div hidden="true">
                             <h:commandButton class="enviarGoogle" value="Enviar" action="#{loginBean.anadir()}"></h:commandButton>
                         </div>

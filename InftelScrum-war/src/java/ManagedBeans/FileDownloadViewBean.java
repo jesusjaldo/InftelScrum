@@ -24,7 +24,7 @@ import org.primefaces.model.StreamedContent;
  * @author inftel20
  */
 @ManagedBean
-public class FileDownloadView {
+public class FileDownloadViewBean {
     @EJB
     private FicherosScrumFacade ficherosScrumFacade;
     
@@ -36,7 +36,7 @@ public class FileDownloadView {
      */
     
      
-    public FileDownloadView() {  
+    public FileDownloadViewBean() {  
 
     }
 

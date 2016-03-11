@@ -26,7 +26,7 @@ import org.primefaces.model.DefaultDashboardModel;
  
 @ManagedBean
 @ViewScoped
-public class DashboardView implements Serializable {
+public class DashboardViewBean implements Serializable {
     
     @EJB
     private TareaScrumFacade tareaScrumFacade;
@@ -138,8 +138,6 @@ public class DashboardView implements Serializable {
         String idT = event.getComponent().getId();
         String id=idT.substring(1);
         manageProjectBean.deleteTask(id);
-        
-        //tareaScrumFacade.remove(tareaScrumFacade.find(event.getComponent().getId()));
         addMessage(message);
     }
      

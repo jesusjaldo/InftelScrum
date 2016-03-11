@@ -61,7 +61,7 @@ public class TaskBean {
     protected String estadoSeleccionado;
     protected Date tiempo;
     protected UploadedFile file;
-    protected Estados[] estados;
+    protected Status[] estados;
 
     /**
      * Creates a new instance of TaskBean
@@ -90,7 +90,7 @@ public class TaskBean {
                 Gson g = new Gson();
                 BufferedReader b;
                 b = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-                Estados[] fromJson = g.fromJson(b, Estados[].class);
+                Status[] fromJson = g.fromJson(b, Status[].class);
                 estados = fromJson;
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(TaskBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,11 +139,11 @@ public class TaskBean {
         this.file = file;
     }
 
-    public Estados[] getEstados() {
+    public Status[] getEstados() {
         return estados;
     }
 
-    public void setEstados(Estados[] eestados) {
+    public void setEstados(Status[] eestados) {
         this.estados = eestados;
     }
 

@@ -6775,7 +6775,7 @@ button.close {
     left: 200px;
 }
 
-.ui-draggable{
+.ui-draggable-handle{
     background-color: transparent !important;
     border: black;
 }

@@ -169,14 +169,12 @@ public class ManageProjectBean {
     
     
     public void deleteTask(String id){
-        System.out.println("llego "+id );
         TareaScrum find = tareaScrumFacade.find(Long.valueOf(id));
         tareaScrumFacade.remove(find);
         loginBean.selectedProject.getTareaScrumCollection().remove(find);
         proyectoScrumFacade.edit(loginBean.selectedProject);
         
         if(find.getIdFichero()!=null){
-            System.out.println("tiene fichero");
             ficherosScrumFacade.remove(find.getIdFichero());
         }
    
