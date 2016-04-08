@@ -6,8 +6,14 @@
 package service;
 
 import ejb.ProyectoScrumFacade;
+import ejb.UsuarioScrumFacade;
+import entityApp.ProjectApp;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,6 +28,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import model.ProyectoScrum;
+import model.UsuarioScrum;
 
 /**
  *
@@ -31,7 +38,10 @@ import model.ProyectoScrum;
 @Path("entity.proyectoscrum")
 public class ProyectoScrumFacadeREST  {
     @EJB
+    private UsuarioScrumFacade usuarioScrumFacade;
+    @EJB
     private ProyectoScrumFacade proyectoScrumFacade;
+    
     @PersistenceContext(unitName = "AppInftelScrumPU")
     private EntityManager em;
     
@@ -43,6 +53,32 @@ public class ProyectoScrumFacadeREST  {
     @POST
     @Consumes({"application/xml", "application/json"})
     public void create(ProyectoScrum entity) {
+        proyectoScrumFacade.create(entity);
+    }
+    
+    @POST
+    @Consumes({"application/xml", "application/json"})
+    public void createP(ProjectApp p) {
+        ProyectoScrum entity = new ProyectoScrum();
+        entity.setNombre(p.getNombre());
+        entity.setDescripcion(p.getDescripcion());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(baos);
+        for(String element: p.getEstados()){
+            try {
+                out.writeUTF(element);
+            } catch (IOException ex) {
+                System.out.println("Error de conversion");
+            }
+        }
+        byte[] state = baos.toByteArray();
+        List<UsuarioScrum> findByEmail = usuarioScrumFacade.findByEmail(p.getId_admin());
+        entity.setIdAdmin(findByEmail.get(0));
+        entity.setEstados(state);
+        
+        Calendar fechaInicio = Calendar.getInstance();
+        
+        entity.setFechaInicio(fechaInicio.getTime());
         proyectoScrumFacade.create(entity);
     }
 
@@ -90,5 +126,6 @@ public class ProyectoScrumFacadeREST  {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
     
 }

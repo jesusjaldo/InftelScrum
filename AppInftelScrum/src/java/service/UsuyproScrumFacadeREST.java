@@ -6,12 +6,12 @@
 package service;
 
 
+import ejb.UsuarioScrumFacade;
 import ejb.UsuyproScrumFacade;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,6 +20,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import model.ProyectoScrum;
+import model.UsuarioScrum;
 import model.UsuyproScrum;
 
 /**
@@ -30,9 +32,9 @@ import model.UsuyproScrum;
 @Path("entity.usuyproscrum")
 public class UsuyproScrumFacadeREST  {
     @EJB
+    private UsuarioScrumFacade usuarioScrumFacade;
+    @EJB
     private UsuyproScrumFacade usuyproScrumFacade;
-    @PersistenceContext(unitName = "AppInftelScrumPU")
-    private EntityManager em;
     
 
     public UsuyproScrumFacadeREST() {
@@ -40,7 +42,6 @@ public class UsuyproScrumFacadeREST  {
     }
 
     @POST
- 
     @Consumes({"application/xml", "application/json"})
     public void create(UsuyproScrum entity) {
         usuyproScrumFacade.create(entity);
@@ -85,10 +86,14 @@ public class UsuyproScrumFacadeREST  {
     public String countREST() {
         return String.valueOf(usuyproScrumFacade.count());
     }
-
-
-    protected EntityManager getEntityManager() {
-        return em;
+    
+    @GET
+    @Path("projects/{email}")
+    @Produces({"application/xml", "application/json"})
+    public List<ProyectoScrum> findAllProjectById(@PathParam("email") String email){
+        List <UsuarioScrum> users = usuarioScrumFacade.findByEmail(email);
+        UsuarioScrum us = users.get(0);
+        return usuyproScrumFacade.findAllProjectById(us.getIdUsuario());
     }
     
 }

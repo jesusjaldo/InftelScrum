@@ -38,4 +38,6 @@ public class ProyectoScrumFacade extends AbstractFacade<ProyectoScrum> {
     public ProyectoScrum getProject(String id_project){
         return getEntityManager().find(ProyectoScrum.class, new BigDecimal(id_project));
     }
+    
+
 }

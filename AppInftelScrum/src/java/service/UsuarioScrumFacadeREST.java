@@ -40,8 +40,10 @@ public class UsuarioScrumFacadeREST  {
 
     @POST
     @Consumes({"application/xml", "application/json"})
-    public void create(UsuarioScrum entity) {
-        usuarioScrumFacade.create(entity);
+    public void create(UsuarioScrum entity) {      
+        if(usuarioScrumFacade.findByEmail(entity.getEmail())==null){
+            usuarioScrumFacade.create(entity);
+        }       
     }
 
     @PUT
@@ -88,5 +90,7 @@ public class UsuarioScrumFacadeREST  {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    
     
 }
